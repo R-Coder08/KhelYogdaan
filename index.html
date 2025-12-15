@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khel Yogdaan | Play Esports & Win Cash</title>
+    <meta name="description" content="Download Khel Yogdaan - The Ultimate Esports Tournament App. Play Free Fire, BGMI, and win real cash daily.">
+
+    <!-- Fonts: Rajdhani (Gaming) & Poppins (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Library: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Animation Library: AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (Configured via Script for Custom Theme) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        khel: {
+                            dark: '#121212',    // Main Background
+                            surface: '#1E1E1E', // Card Background
+                            accent: '#FF5722',  // Neon Orange
+                            accentHover: '#E64A19'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(255, 87, 34, 0.5)',
+                        'neon-hover': '0 0 25px rgba(255, 87, 34, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Glassmorphism & Effects -->
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Class */
+        .glass {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #FF5722, #FF8A65);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF5722;
+        }
+
+        /* Floating Animation for Phone */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Mesh Gradient Background Blob */
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,87,34,0.15) 0%, rgba(18,18,18,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Background Glow Effect -->
+    <div class="blob top-0 left-0"></div>
+    <div class="blob bottom-0 right-0"></div>
+
+    <!-- 1. Sticky Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-khel-accent rounded-lg flex items-center justify-center shadow-neon group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-gamepad text-white text-xl"></i>
+                </div>
+                <span class="font-display font-bold text-2xl tracking-wide">KHEL <span class="text-khel-accent">YOGDAAN</span></span>
+            </a>
+
+            <!-- CTA Button -->
+            <a href="#download" class="hidden md:flex items-center gap-2 bg-khel-surface border border-khel-accent text-khel-accent px-6 py-2 rounded-full font-semibold hover:bg-khel-accent hover:text-white transition-all duration-300 shadow-neon">
+                <i class="fa-brands fa-android"></i>
+                <span>Download App</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <div class="inline-block bg-khel-accent/10 border border-khel-accent/20 px-4 py-1 rounded-full text-khel-accent text-sm font-semibold mb-6 tracking-wider">
+                    <i class="fa-solid fa-fire mr-2"></i>INDIA'S NO.1 ESPORTS APP
+                </div>
+                <h1 class="font-display font-bold text-5xl lg:text-7xl leading-tight mb-6">
+                    PLAY <span class="text-gradient">FREE FIRE</span> <br>
+                    WIN REAL CASH
+                </h1>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed max-w-lg">
+                    Join daily tournaments, kill enemies, and withdraw your winnings instantly via UPI. The battleground awaits you, soldier.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-khel-accent hover:bg-khel-accentHover text-white px-8 py-4 rounded-lg font-bold text-lg shadow-neon hover:shadow-neon-hover transition-all duration-300 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-download animate-bounce"></i>
+                        Download Android App
+                    </button>
+                    <a href="#features" class="glass text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/10 transition-all flex items-center justify-center">
+                        Explore Features
+                    </a>
+                </div>
+                
+                <p class="mt-4 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-green-500"></i> 100% Secure & Safe Downloads
+                </p>
+            </div>
+
+            <!-- Image/Mockup Content -->
+            <div class="relative z-10 flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="1200">
+                <!-- CSS Phone Mockup -->
+                <div class="relative w-[280px] h-[580px] border-[12px] border-[#2a2a2a] rounded-[3rem] bg-[#121212] shadow-2xl animate-float">
+                    <!-- Notch -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-[#2a2a2a] rounded-b-xl z-20"></div>
+                    <!-- Screen Image -->
+                    <div class="w-full h-full rounded-[2.2rem] overflow-hidden relative">
+                        <!-- Overlay gradient for depth -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-khel-dark/90 z-10"></div>
+                        <!-- Placeholder Game Image -->
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Esports Gameplay" class="w-full h-full object-cover">
+                        
+                        <!-- UI Element inside phone -->
+                        <div class="absolute bottom-8 left-4 right-4 z-20 glass p-4 rounded-xl border-l-4 border-khel-accent">
+                            <p class="text-xs text-gray-300">Next Match Starting</p>
+                            <h3 class="font-display font-bold text-xl">Bermuda | Solo</h3>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-khel-accent font-bold">Entry: ₹10</span>
+                                <span class="text-green-400 font-bold">Prize: ₹500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Live Stats Bar -->
+    <section class="border-y border-white/5 bg-khel-surface/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                <div data-aos="fade-up" data-aos-delay="0">
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-white">10K+</h3>
+                    <p class="text-gray-400 text-sm mt-1">Active Users</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-white">₹5L+</h3>
+                    <p class="text-gray-400 text-sm mt-1">Winnings Paid</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-white">Daily</h3>
+                    <p class="text-gray-400 text-sm mt-1">Tournaments</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-white">24/7</h3>
+                    <p class="text-gray-400 text-sm mt-1">Live Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Features Grid -->
+    <section id="features" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-display font-bold text-4xl mb-4">WHY CHOOSE <span class="text-khel-accent">US?</span></h2>
+                <div class="h-1 w-24 bg-khel-accent mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-khel-surface rounded-lg flex items-center justify-center mb-6 group-hover:bg-khel-accent transition-colors">
+                        <i class="fa-solid fa-indian-rupee-sign text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">Instant UPI Withdrawal</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Win a match and get your money directly into your bank account via PhonePe, GPay, or Paytm instantly.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="w-14 h-14 bg-khel-surface rounded-lg flex items-center justify-center mb-6 group-hover:bg-khel-accent transition-colors">
+                        <i class="fa-solid fa-crosshairs text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">Daily Matches</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Solo, Duo, and Squad matches hosted every hour. High prize pools and low entry fees for everyone.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-khel-surface rounded-lg flex items-center justify-center mb-6 group-hover:bg-khel-accent transition-colors">
+                        <i class="fa-solid fa-headset text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">24/7 Support</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Facing an issue? Our dedicated support team is available via WhatsApp and In-App Chat to help you out.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Installation Guide -->
+    <section class="py-20 px-6 bg-khel-surface/20" id="download">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-display font-bold text-4xl mb-2">HOW TO <span class="text-khel-accent">INSTALL</span></h2>
+                <p class="text-gray-400">Follow these 3 simple steps to start earning</p>
+            </div>
+
+            <div class="space-y-8 relative">
+                <!-- Vertical Line (Desktop only) -->
+                <div class="hidden md:block absolute left-8 top-8 bottom-8 w-0.5 bg-gray-700"></div>
+
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start md:items-center relative" data-aos="fade-right">
+                    <div class="w-16 h-16 shrink-0 bg-khel-accent rounded-full flex items-center justify-center text-2xl font-bold font-display shadow-neon z-10">1</div>
+                    <div class="glass p-6 rounded-xl w-full flex-1">
+                        <h4 class="font-bold text-xl mb-2 text-khel-accent">Download APK</h4>
+                        <p class="text-gray-400 text-sm">Click the download button above. If a warning appears, click "Download Anyway" (100% Safe).</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start md:items-center relative" data-aos="fade-right" data-aos-delay="100">
+                    <div class="w-16 h-16 shrink-0 bg-khel-surface border border-gray-600 rounded-full flex items-center justify-center text-2xl font-bold font-display z-10">2</div>
+                    <div class="glass p-6 rounded-xl w-full flex-1">
+                        <h4 class="font-bold text-xl mb-2 text-white">Allow Installation</h4>
+                        <p class="text-gray-400 text-sm">Go to Settings > Security > Enable "Install from Unknown Sources" to install the app.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start md:items-center relative" data-aos="fade-right" data-aos-delay="200">
+                    <div class="w-16 h-16 shrink-0 bg-khel-surface border border-gray-600 rounded-full flex items-center justify-center text-2xl font-bold font-display z-10">3</div>
+                    <div class="glass p-6 rounded-xl w-full flex-1">
+                        <h4 class="font-bold text-xl mb-2 text-white">Register & Play</h4>
+                        <p class="text-gray-400 text-sm">Open the app, sign up with your mobile number, join a match, and start winning!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center mt-12" data-aos="zoom-in">
+                <button class="bg-khel-accent hover:bg-khel-accentHover text-white px-10 py-4 rounded-lg font-bold text-xl shadow-neon transition-all w-full md:w-auto">
+                    Download Khel Yogdaan Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="bg-black py-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex flex-col items-center md:items-start">
+                <a href="#" class="font-display font-bold text-2xl tracking-wide mb-2">KHEL <span class="text-khel-accent">YOGDAAN</span></a>
+                <p class="text-gray-500 text-sm text-center md:text-left">The ultimate platform for esports lovers.</p>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-khel-accent hover:text-white transition-all text-gray-400">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-khel-accent hover:text-white transition-all text-gray-400">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-khel-accent hover:text-white transition-all text-gray-400">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
+            <div class="text-gray-600 text-sm">
+                &copy; 2023 Khel Yogdaan. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // Animations happen only once while scrolling down
+            offset: 50, // Offset (in px) from the original trigger point
+            duration: 800, // Duration of animation
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>
