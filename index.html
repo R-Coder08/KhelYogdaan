@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khel Yogdaan | Play Esports & Win Cash</title>
     <meta name="description" content="Download Khel Yogdaan - The Ultimate Esports Tournament App.">
+    
+    <meta name="theme-color" content="#FFE52A">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,7 +254,7 @@
             <div id="dl-finish-view" class="hidden">
                 <i class="fa-solid fa-circle-check text-5xl text-green-500 mb-4"></i>
                 <h3 class="text-2xl font-bold font-display mb-2">Download Started!</h3>
-                <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="KhelYogdaan.apk" class="text-khel-accent underline" download>click here</a>.</p>
+                <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="app-debug.apk" class="text-khel-accent underline" download>click here</a>.</p>
                 <button onclick="closeDownloadModal()" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg text-sm">Close</button>
             </div>
         </div>
@@ -306,8 +308,8 @@
                         // 2. TRIGGER ACTUAL DOWNLOAD
                         // Hum ek invisible link banayenge aur uspar click karenge
                         const link = document.createElement('a');
-                        link.href = 'KhelYogdaan.apk'; // IMPORTANT: File name here
-                        link.download = 'KhelYogdaan.apk'; 
+                        link.href = 'app-debug.apk'; // IMPORTANT: File name here
+                        link.download = 'app-debug.apk'; 
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
