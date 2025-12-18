@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* Global Settings */
+    body {
+        background-color: #121212; /* App Background */
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #E0E0E0;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    /* Main Container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Header Styling */
+    h1 {
+        color: #FF5722; /* Khel Yogdaan Orange */
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #FF5722;
+        padding-bottom: 15px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #B0B0B0;
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+    /* Card Design */
+    .policy-card {
+        background-color: #1E1E1E; /* Card Surface */
+        border-left: 5px solid #FF5722;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+    }
+
+    .policy-card:hover {
+        transform: translateY(-2px); /* Hover Effect */
+    }
+
+    h2 {
+        color: #FFFFFF;
+        font-size: 18px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Icons for Headings */
+    .icon {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 15px;
+        color: #CCCCCC;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #CCCCCC;
+    }
+
+    li {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    /* Highlight Text */
+    .highlight {
+        color: #FF5722;
+        font-weight: bold;
+    }
+
+    .success {
+        color: #4CAF50; /* Green */
+        font-weight: bold;
+    }
+
+    .warning {
+        color: #FFC107; /* Amber */
+        font-weight: bold;
+    }
+
+    /* Footer / Contact Section */
+    .contact-box {
+        text-align: center;
+        margin-top: 40px;
+        padding: 20px;
+        border: 1px solid #333;
+        border-radius: 10px;
+        background: #000;
+    }
+
+    .contact-btn {
+        display: inline-block;
+        background-color: #FF5722;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Refund & Cancellation Policy</h1>
+    <div class="subtitle">Last Updated: October 2023</div>
+
+    <p style="text-align: center; margin-bottom: 30px;">
+        At <strong>Khel Yogdaan</strong>, we strive to ensure fair play and transparent transactions. 
+        Please read the following policies carefully to understand how refunds and cancellations work on our platform.
+    </p>
+
+    <!-- Section 1: Match Cancellations -->
+    <div class="policy-card">
+        <h2><span class="icon">🎮</span> Match Cancellations (By Admin)</h2>
+        <p>If a match is cancelled by the Khel Yogdaan team due to server issues, lack of participants, or technical glitches:</p>
+        <ul>
+            <li>You will receive a <span class="success">100% Refund</span> of your entry fee (Coins).</li>
+            <li>The refund will be credited to your in-app wallet <strong>instantly</strong> or within 24 hours.</li>
+            <li>No action is required from your side.</li>
+        </ul>
+    </div>
+
+    <!-- Section 2: User Cancellations -->
+    <div class="policy-card">
+        <h2><span class="icon">👤</span> Cancellations by User</h2>
+        <p>If you have joined a match but wish to leave:</p>
+        <ul>
+            <li>You can unregister from a match up to <strong>15 minutes before</strong> the scheduled start time.</li>
+            <li>In this case, the entry fee will be fully refunded to your wallet.</li>
+            <li><span class="warning">Note:</span> If you leave within 15 minutes of the match start time, <strong>NO REFUND</strong> will be provided as the slot was reserved for you.</li>
+        </ul>
+    </div>
+
+    <!-- Section 3: Disqualification -->
+    <div class="policy-card">
+        <h2><span class="icon">🚫</span> Disqualification & Bans</h2>
+        <p>We have a zero-tolerance policy for cheating. No refunds will be issued in the following cases:</p>
+        <ul>
+            <li>If you are found using <strong>Hacks, Scripts, or Emulators</strong>.</li>
+            <li>If you are caught <strong>Teaming up</strong> with opponents in Solo/Duo matches.</li>
+            <li>If you fail to join the room on time (Room ID/Pass is provided 10 mins prior).</li>
+            <li>If your internet connection fails during the game.</li>
+        </ul>
+    </div>
+
+    <!-- Section 4: Transaction Failures -->
+    <div class="policy-card">
+        <h2><span class="icon">💳</span> Deposit/Transaction Failures</h2>
+        <p>If you paid money via UPI/Gateway but coins were not added to your wallet:</p>
+        <ul>
+            <li>Please wait for <strong>30 minutes</strong> as bank servers might be slow.</li>
+            <li>If the issue persists, the money is usually auto-refunded by your bank within <strong>3-5 business days</strong>.</li>
+            <li>You can contact our support with your <strong>Transaction/UTR ID</strong> for manual verification.</li>
+        </ul>
+    </div>
+
+    <!-- Section 5: Wallet Withdrawals -->
+    <div class="policy-card">
+        <h2><span class="icon">🏦</span> Withdrawals</h2>
+        <p>Coins won in tournaments can be withdrawn to UPI (PhonePe, GPay) or Redeem Codes.</p>
+        <ul>
+            <li>Requests are processed within <strong>24 to 48 hours</strong>.</li>
+            <li>If you provide incorrect UPI details, Khel Yogdaan is not responsible for the loss of funds.</li>
+            <li>Once processed, withdrawals cannot be reversed.</li>
+        </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-box">
+        <h3>Have more questions?</h3>
+        <p>Our support team is available 24/7 on WhatsApp to assist you.</p>
+        <a href="https://api.whatsapp.com/send?phone=+917811829907" class="contact-btn">Chat on WhatsApp</a>
+    </div>
+
+</div>
+
+</body>
+</html>
