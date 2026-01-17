@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Father's Help - Unit Navigator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,700&display=swap');
+
+        :root {
+            --bg-color: #f4f6f8;
+            --text-color: #2d3436;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --active-bg: #ffffff;
+            --active-border: #6c5ce7;
+            --highlight-word: #ffeaa7;
+            --highlight-text: #d63031;
+            --tooltip-bg: #2d3436;
+            --tooltip-text: #fff;
+            --dock-bg: #2d3436;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --active-bg: #2d2d2d;
+            --active-border: #a29bfe;
+            --highlight-word: #d35400;
+            --highlight-text: #fff;
+            --tooltip-bg: #000000;
+            --dock-bg: #000000;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 2;
+            transition: all 0.3s ease;
+            padding-bottom: 150px;
+        }
+
+        /* --- Header (New Layout) --- */
+        .header {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title-area {
+            text-align: left;
+        }
+
+        .header h1 { margin: 0; font-family: 'Hind Siliguri', sans-serif; font-size: 1.3em; line-height: 1.2; }
+        .subtitle { font-size: 0.8em; color: #888; }
+
+        /* --- Navigation Controls (Top Right) --- */
+        .nav-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .unit-select {
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 0.9em;
+            outline: none;
+        }
+
+        .go-btn {
+            background-color: #00b894;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        .go-btn:active { background-color: #00a884; transform: scale(0.95); }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* --- Text Units --- */
+        .text-unit {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            -webkit-user-select: none; user-select: none;
+        }
+
+        .text-unit:hover { transform: translateY(-2px); }
+
+        .text-unit.active {
+            border-color: var(--active-border);
+            background-color: var(--active-bg);
+            box-shadow: 0 0 0 2px var(--active-border);
+            z-index: 101;
+        }
+
+        /* CHUNK MODE STYLES */
+        .mode-chunk .text-unit {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 6px 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        /* FULL MODE STYLES */
+        .mode-full .text-unit {
+            display: block;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 1.25em;
+            line-height: 1.8;
+            border-left: 4px solid transparent;
+        }
+        .mode-full .text-unit.active {
+            border-left-color: var(--active-border);
+        }
+
+        /* Focus Mode Logic */
+        body.focus-mode .text-unit:not(.active) {
+            opacity: 0.3;
+            filter: blur(1.5px);
+        }
+
+        /* Word Highlighting */
+        .word-span { padding: 0 1px; border-radius: 3px; }
+        .word-span.live-highlight {
+            background-color: var(--highlight-word);
+            color: var(--highlight-text);
+            font-weight: bold;
+        }
+
+        /* --- Popup Styling --- */
+        .popup {
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            padding: 15px;
+            border-radius: 12px;
+            font-family: 'Hind Siliguri', sans-serif;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 2000;
+            width: 280px;
+            pointer-events: auto;
+        }
+
+        .text-unit.active .popup { display: block; animation: fadeIn 0.3s ease; }
+
+        .popup::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+        }
+
+        /* Smart Positioning */
+        .popup.pos-top { bottom: 110%; top: auto; }
+        .popup.pos-top::after { top: 100%; bottom: auto; border-color: var(--tooltip-bg) transparent transparent transparent; }
+        .popup.pos-bottom { top: 110%; bottom: auto; }
+        .popup.pos-bottom::after { bottom: 100%; top: auto; border-color: transparent transparent var(--tooltip-bg) transparent; }
+
+        /* Popup Content */
+        .bn-text { font-size: 1.1em; margin-bottom: 10px; display: block; color: #fab1a0; line-height: 1.4; }
+        .vocab-list { 
+            background: rgba(255,255,255,0.1); 
+            padding: 8px; 
+            border-radius: 6px; 
+            margin-bottom: 10px; 
+            text-align: left; 
+            font-size: 0.9em; 
+        }
+        .v-key { color: #74b9ff; font-weight: bold; }
+
+        /* Buttons */
+        .btn-row { display: flex; gap: 10px; justify-content: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; }
+        .play-btn {
+            background: none; border: 1px solid rgba(255,255,255,0.3); color: white;
+            padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.9em;
+            display: flex; align-items: center; gap: 5px; outline: none;
+        }
+        .play-btn:active { background: rgba(255,255,255,0.2); }
+        .play-btn.playing { background: #00b894; border-color: #00b894; animation: pulse 1s infinite; }
+
+        /* --- Bottom Dock --- */
+        .dock {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: var(--dock-bg); padding: 10px 20px; border-radius: 50px;
+            display: flex; gap: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); z-index: 3000;
+        }
+        .dock-btn {
+            font-size: 1.5em; cursor: pointer; color: #b2bec3; transition: 0.2s; position: relative;
+            user-select: none;
+        }
+        .dock-btn.active { color: #fff; transform: translateY(-3px); }
+        .dock-btn.active::after {
+            content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+            width: 5px; height: 5px; background: #00b894; border-radius: 50%;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) scale(0.9); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* Mobile Responsive Header */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding-bottom: 10px;
+            }
+            .header-title-area {
+                text-align: center;
+                width: 100%;
+            }
+            .nav-controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+    </style>
+</head>
+<body class="mode-chunk">
+
+<!-- UPDATED HEADER WITH NAV -->
+<div class="header">
+    <div class="header-title-area">
+        <h1>Father's Help</h1>
+        <div class="subtitle" id="modeIndicator">Phrase Mode</div>
+    </div>
+    
+    <div class="nav-controls">
+        <select id="unitSelect" class="unit-select">
+            <option value="Fatheru1.html">Unit 1</option>
+            <option value="Fatheru2.html" selected>Unit 2</option>
+            <option value="Fatheru3.html">Unit 3</option>
+        </select>
+        <button onclick="goToUnit()" class="go-btn">Go</button>
+    </div>
+</div>
+
+<div class="container" id="contentArea"></div>
+
+<div class="dock">
+    <div class="dock-btn" id="themeBtn" title="Theme">🌙</div>
+    <div class="dock-btn active" id="syncBtn" title="Highlight">✨</div>
+    <div class="dock-btn" id="slowBtn" title="Slow Speed">🐢</div>
+    <div class="dock-btn" id="focusBtn" title="Focus Mode">🎯</div>
+    <div class="dock-btn" id="viewModeBtn" title="Change View">📖</div>
+</div>
+
+<script>
+    // --- NAVIGATION FUNCTION ---
+    function goToUnit() {
+        const url = document.getElementById('unitSelect').value;
+        if(url) {
+            window.location.href = url;
+        }
+    }
+
+    // --- COMPLETE DATA ---
+    const rawData = [
+        { en: "Swami hoped that", bn: "স্বামী আশা করেছিল যে", vocab: { "hoped": "আশা করেছিল" } },
+        { en: "with this", bn: "এর মাধ্যমে" },
+        { en: "his father would be made to see", bn: "তার বাবা বুঝতে পারবেন" },
+        { en: "why he must avoid school", bn: "কেন তার স্কুলে যাওয়া এড়িয়ে চলা উচিত", vocab: { "avoid": "এড়িয়ে চলা" } },
+        { en: "for the day.", bn: "সেদিন।" },
+        { type: "break" },
+
+        { en: "But Father’s behaviour", bn: "কিন্তু বাবার আচরণে", vocab: { "behaviour": "আচরণ" } },
+        { en: "took an unexpected turn.", bn: "এক অপ্রত্যাশিত মোড় এল।", vocab: { "unexpected": "অপ্রত্যাশিত" } },
+        { type: "break" },
+
+        { en: "He proposed to send a letter", bn: "তিনি একটি চিঠি পাঠানোর প্রস্তাব দিলেন", vocab: { "proposed": "প্রস্তাব দিলেন" } },
+        { en: "with Swami", bn: "স্বামীর মাধ্যমে" },
+        { en: "to the headmaster.", bn: "প্রধান শিক্ষকের কাছে।" },
+        { type: "break" },
+
+        { en: "No amount of protest", bn: "কোনো ওজর-আপত্তিই", vocab: { "protest": "প্রতিবাদ" } },
+        { en: "from Swami", bn: "স্বামীর তরফ থেকে" },
+        { en: "would make him change his mind.", bn: "তার বাবার মত বদলাতে পারল না।" },
+        { type: "break" },
+
+        { en: "By the time Swami was ready", bn: "স্বামী যখন তৈরি হল" },
+        { en: "to leave for school,", bn: "স্কুলে যাওয়ার জন্য," },
+        { en: "Father had composed", bn: "বাবা লিখে ফেলেছেন", vocab: { "composed": "লিখেছেন/রচনা করেছেন" } },
+        { en: "a long letter to the headmaster.", bn: "প্রধান শিক্ষকের জন্য একটি দীর্ঘ চিঠি।" },
+        { type: "break" },
+
+        { en: "He put it in an envelope", bn: "তিনি ওটি একটি খামে ভরলেন", vocab: { "envelope": "খাম" } },
+        { en: "and sealed it.", bn: "এবং মুখ বন্ধ করে দিলেন।", vocab: { "sealed": "সীলমোহর করা" } },
+        { type: "break" },
+
+        { en: "“What have you written, Father?”", bn: "“তুমি কী লিখেছ, বাবা?”" },
+        { en: "Swami asked apprehensively.", bn: "স্বামী ভয়ে ভয়ে জিজ্ঞাসা করল।", vocab: { "apprehensively": "সশঙ্কিতভাবে" } },
+        { type: "break" },
+
+        { en: "“Nothing for you.", bn: "“তোমার জন্য কিছু নয়।" },
+        { en: "Give it to your headmaster", bn: "এটা তোমার প্রধান শিক্ষককে দিয়ে" },
+        { en: "and go to your class.”", bn: "নিজের ক্লাসে চলে যাবে।”" },
+        { type: "break" },
+
+        { en: "“Have you written anything", bn: "“তুমি কি কিছু লিখেছ" },
+        { en: "about our teacher Samuel?”", bn: "আমাদের শিক্ষক স্যামুয়েল সম্পর্কে?”" },
+        { type: "break" },
+
+        { en: "“Yes. Plenty of things.”", bn: "“হ্যাঁ। অনেক কিছুই লিখেছি।”", vocab: { "plenty": "প্রচুর/অনেক" } },
+        { type: "break" },
+
+        { en: "“What has he done, Father?”", bn: "“তিনি কী করেছেন, বাবা?”" },
+        { type: "break" },
+
+        { en: "“Everything is there in the letter.", bn: "“সবকিছুই চিঠিতে লেখা আছে।" },
+        { en: "Give it to your headmaster.”", bn: "এটা তোমার প্রধান শিক্ষককে দিয়ে দেবে।”" },
+        { type: "break" },
+
+        { en: "Swami went to school", bn: "স্বামী স্কুলের পথে চলল" },
+        { en: "feeling that", bn: "এটা ভাবতে ভাবতে যে" },
+        { en: "he was the worst boy on earth.", bn: "সে পৃথিবীর সবথেকে খারাপ ছেলে।", vocab: { "worst": "সবচেয়ে খারাপ" } },
+        { type: "break" },
+
+        { en: "His conscience bothered him.", bn: "তার বিবেক তাকে দংশন করতে লাগল।", vocab: { "conscience": "বিবেক", "bothered": "বিরক্ত করা" } },
+        { type: "break" },
+
+        { en: "He wasn’t at all sure", bn: "সে মোটেও নিশ্চিত ছিল না" },
+        { en: "if his description of Samuel", bn: "স্যামুয়েল সম্পর্কে তার দেওয়া বর্ণনা", vocab: { "description": "বর্ণনা" } },
+        { en: "had been accurate.", bn: "সঠিক ছিল কিনা।", vocab: { "accurate": "সঠিক" } },
+        { type: "break" },
+
+        { en: "He felt he had mixed up", bn: "তার মনে হচ্ছিল সে গুলিয়ে ফেলেছে", vocab: { "mixed up": "গুলিয়ে ফেলা" } },
+        { en: "the real and the imagined.", bn: "বাস্তব আর কল্পনাকে।", vocab: { "imagined": "কল্পিত" } },
+        { type: "break" },
+
+        { en: "Swami stopped on the roadside", bn: "স্বামী রাস্তার ধারে দাঁড়াল", vocab: { "roadside": "রাস্তার ধার" } },
+        { en: "to make up his mind about Samuel.", bn: "স্যামুয়েল সম্পর্কে মনস্থির করার জন্য।" },
+        { type: "break" },
+
+        { en: "Samuel was not such a bad man", bn: "স্যামুয়েল অতটা খারাপ মানুষ ছিলেন না" },
+        { en: "after all.", bn: "আদতে।" },
+        { type: "break" },
+
+        { en: "Personally he was much more friendly", bn: "ব্যক্তিগতভাবে তিনি অনেক বেশি বন্ধুসুলভ ছিলেন", vocab: { "friendly": "বন্ধুসুলভ" } },
+        { en: "than the other teachers.", bn: "অন্য শিক্ষকদের তুলনায়।" },
+        { type: "break" },
+
+        { en: "Swami also felt", bn: "স্বামীর এটাও মনে হল" },
+        { en: "Samuel had a special regard for him.", bn: "যে স্যামুয়েল তাকে বিশেষ স্নেহ করেন।", vocab: { "regard": "শ্রদ্ধা/স্নেহ" } },
+        { type: "break" },
+
+        { en: "Swami’s head was dizzy", bn: "স্বামীর মাথা ঘুরছিল", vocab: { "dizzy": "মাথা ঝিমঝিম করা" } },
+        { en: "with confusion.", bn: "বিভ্রান্তিতে।", vocab: { "confusion": "বিভ্রান্তি" } },
+        { type: "break" },
+
+        { en: "He could not decide", bn: "সে ঠিক করতে পারছিল না" },
+        { en: "if Samuel really deserved", bn: "স্যামুয়েল সত্যিই যোগ্য কিনা", vocab: { "deserved": "যোগ্য হওয়া" } },
+        { en: "the allegations made against him", bn: "তার বিরুদ্ধে করা অভিযোগগুলোর", vocab: { "allegations": "অভিযোগ" } },
+        { en: "in the letter.", bn: "চিঠিতে।" },
+        { type: "break" },
+
+        { en: "The more he thought of Samuel,", bn: "সে যত স্যামুয়েলের কথা ভাবতে লাগল," },
+        { en: "the more Swami grieved for him.", bn: "ততই তার জন্য স্বামীর মন দুঃখে ভরে উঠল।", vocab: { "grieved": "দুঃখিত হওয়া" } },
+        { type: "break" },
+
+        { en: "To recall Samuel’s dark face,", bn: "স্যামুয়েলের কালো মুখের কথা মনে পড়তেই," },
+        { en: "his thin moustache,", bn: "তার সরু গোঁফ," },
+        { en: "unshaven cheek", bn: "না-কামানো গাল", vocab: { "unshaven": "না-কামানো" } },
+        { en: "and yellow coat", bn: "আর হলুদ কোট" },
+        { en: "filled Swaminathan with sorrow.", bn: "স্বামীনাথন দুঃখে কাতর হয়ে পড়ল।", vocab: { "sorrow": "দুঃখ" } }
+    ];
+
+    // --- STATE & SETUP ---
+    const contentArea = document.getElementById('contentArea');
+    const modeIndicator = document.getElementById('modeIndicator');
+    let synth = window.speechSynthesis;
+    let isFullMode = false; 
+    let isSync = true;
+    let isSlow = false;
+    let currentBtn = null;
+
+    // --- RENDER ENGINE ---
+    function render() {
+        contentArea.innerHTML = "";
+        document.body.className = isFullMode ? "mode-full" : "mode-chunk";
+        if(document.body.classList.contains('dark-mode')) document.body.classList.add('dark-mode');
+        if(document.body.classList.contains('focus-mode')) document.body.classList.add('focus-mode');
+
+        modeIndicator.innerText = isFullMode ? "Full Sentence Mode" : "Phrase Mode (ভেঙে ভেঙে পড়া)";
+
+        if (isFullMode) {
+            renderFullMode();
+        } else {
+            renderChunkMode();
+        }
+    }
+
+    function renderChunkMode() {
+        rawData.forEach(item => {
+            if (item.type === "break") {
+                return;
+            }
+            createUnit(item.en, item.bn, item.vocab);
+        });
+    }
+
+    function renderFullMode() {
+        let bufferEn = "";
+        let bufferBn = "";
+        let bufferVocab = {};
+
+        rawData.forEach((item, index) => {
+            if (item.type === "break") {
+                if (bufferEn.trim() !== "") {
+                    createUnit(bufferEn.trim(), bufferBn.trim(), bufferVocab);
+                    bufferEn = ""; bufferBn = ""; bufferVocab = {};
+                }
+                contentArea.appendChild(document.createElement('br'));
+                return;
+            }
+
+            bufferEn += item.en + " ";
+            bufferBn += item.bn + " ";
+            if (item.vocab) Object.assign(bufferVocab, item.vocab);
+
+            const t = item.en.trim();
+            if (t.endsWith('.') || t.endsWith('”') || t.endsWith('?') || t.endsWith('!')) {
+                createUnit(bufferEn.trim(), bufferBn.trim(), bufferVocab);
+                bufferEn = ""; bufferBn = ""; bufferVocab = {};
+            }
+        });
+        
+        if (bufferEn.trim() !== "") {
+            createUnit(bufferEn.trim(), bufferBn.trim(), bufferVocab);
+        }
+    }
+
+    // --- UNIT CREATOR ---
+    function createUnit(enText, bnText, vocabObj) {
+        const unit = document.createElement('div');
+        unit.className = 'text-unit';
+
+        let html = "";
+        let count = 0;
+        enText.split(" ").forEach(word => {
+            html += `<span class="word-span" data-start="${count}">${word}</span> `;
+            count += word.length + 1;
+        });
+        unit.innerHTML = html;
+
+        const popup = document.createElement('div');
+        popup.className = 'popup'; 
+        
+        let popupHtml = `<span class="bn-text">${bnText}</span>`;
+        
+        if (vocabObj && Object.keys(vocabObj).length > 0) {
+            popupHtml += `<div class="vocab-list">`;
+            for (let [k,v] of Object.entries(vocabObj)) {
+                popupHtml += `<div><span class="v-key">${k}</span>: ${v}</div>`;
+            }
+            popupHtml += `</div>`;
+        }
+
+        const controls = document.createElement('div');
+        controls.className = 'btn-row';
+        
+        const btnEng = document.createElement('button');
+        btnEng.className = 'play-btn';
+        btnEng.innerHTML = '🔊 ENG';
+        btnEng.onclick = (e) => { e.stopPropagation(); play(enText, 'en-US', btnEng, unit); };
+
+        const btnBen = document.createElement('button');
+        btnBen.className = 'play-btn';
+        btnBen.innerHTML = '🇮🇳 BNG';
+        btnBen.onclick = (e) => { e.stopPropagation(); play(bnText, 'bn-IN', btnBen, null); };
+
+        controls.appendChild(btnEng);
+        controls.appendChild(btnBen);
+        popup.innerHTML = popupHtml;
+        popup.appendChild(controls);
+        
+        unit.appendChild(popup);
+
+        // --- CLICK EVENT WITH IMPROVED POSITIONING ---
+        unit.onclick = (e) => {
+            e.stopPropagation();
+            if (unit.classList.contains('active')) {
+                reset();
+            } else {
+                reset();
+                unit.classList.add('active');
+                
+                const rect = unit.getBoundingClientRect();
+                const headerHeight = document.querySelector('.header').offsetHeight || 60;
+                
+                // যদি এলিমেন্টটি স্ক্রিনের একদম ওপরের দিকে থাকে
+                if (rect.top < (headerHeight + 220)) { 
+                    popup.classList.remove('pos-top');
+                    popup.classList.add('pos-bottom');
+                } else {
+                    popup.classList.remove('pos-bottom');
+                    popup.classList.add('pos-top');
+                }
+
+                setTimeout(() => unit.scrollIntoView({behavior: "smooth", block: "center"}), 100);
+            }
+        };
+
+        contentArea.appendChild(unit);
+    }
+
+    function play(text, lang, btn, container) {
+        stopAudio();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = lang;
+        u.rate = isSlow ? 0.50 : 1.0; 
+
+        btn.classList.add('playing');
+        currentBtn = btn;
+
+        if (isSync && container) {
+            u.onboundary = function(e) {
+                if (e.name === 'word') {
+                    container.querySelectorAll('.word-span').forEach(s => s.classList.remove('live-highlight'));
+                    const spans = Array.from(container.querySelectorAll('.word-span'));
+                    const target = spans.find(span => {
+                        const s = parseInt(span.getAttribute('data-start'));
+                        const l = span.innerText.length;
+                        return e.charIndex >= s && e.charIndex < (s + l + 1);
+                    });
+                    if (target) target.classList.add('live-highlight');
+                }
+            };
+        }
+        u.onend = stopAudio;
+        u.onerror = stopAudio;
+        synth.speak(u);
+    }
+
+    function stopAudio() {
+        synth.cancel();
+        if (currentBtn) currentBtn.classList.remove('playing');
+        document.querySelectorAll('.word-span').forEach(s => s.classList.remove('live-highlight'));
+        currentBtn = null;
+    }
+
+    function reset() {
+        document.querySelectorAll('.text-unit.active').forEach(el => el.classList.remove('active'));
+        stopAudio();
+    }
+
+    // --- BUTTON HANDLERS ---
+    document.getElementById('themeBtn').onclick = function() { document.body.classList.toggle('dark-mode'); };
+    document.getElementById('syncBtn').onclick = function() { isSync = !isSync; this.classList.toggle('active'); };
+    document.getElementById('slowBtn').onclick = function() { isSlow = !isSlow; this.classList.toggle('active'); if(synth.speaking) stopAudio(); };
+    document.getElementById('focusBtn').onclick = function() { document.body.classList.toggle('focus-mode'); this.classList.toggle('active'); };
+    
+    document.getElementById('viewModeBtn').onclick = function() {
+        isFullMode = !isFullMode;
+        this.classList.toggle('active');
+        reset();
+        render();
+    };
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dock') && !e.target.closest('.text-unit') && !e.target.closest('.header')) {
+            reset();
+        }
+    });
+
+    render(); 
+
+</script>
+
+</body>
+</html>

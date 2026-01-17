@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Father's Help - Auto Fix Popup</title>
+    <title>Father's Help - Unit 3</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,700&display=swap');
 
@@ -50,15 +50,53 @@
         /* --- Header --- */
         .header {
             background: var(--card-bg);
-            padding: 15px;
-            text-align: center;
+            padding: 15px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .header h1 { margin: 0; font-family: 'Hind Siliguri', sans-serif; font-size: 1.3em; }
+
+        .header-title-area {
+            text-align: left;
+        }
+
+        .header h1 { margin: 0; font-family: 'Hind Siliguri', sans-serif; font-size: 1.3em; line-height: 1.2; }
         .subtitle { font-size: 0.8em; color: #888; }
+
+        /* --- Navigation Controls --- */
+        .nav-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .unit-select {
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 0.9em;
+            outline: none;
+        }
+
+        .go-btn {
+            background-color: #00b894;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        .go-btn:active { background-color: #00a884; transform: scale(0.95); }
 
         /* --- Content Layout --- */
         .container {
@@ -125,7 +163,7 @@
             font-weight: bold;
         }
 
-        /* --- Popup Styling (Fixed Z-Index) --- */
+        /* --- Popup Styling --- */
         .popup {
             display: none;
             position: absolute;
@@ -137,8 +175,8 @@
             border-radius: 12px;
             font-family: 'Hind Siliguri', sans-serif;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* Shadow increased */
-            z-index: 2000; /* Increased Z-Index to be above everything */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 2000;
             width: 280px;
             pointer-events: auto;
         }
@@ -154,26 +192,11 @@
             border-style: solid;
         }
 
-        /* --- Smart Positioning --- */
-        .popup.pos-top {
-            bottom: 110%; /* Adjusted closer */
-            top: auto;
-        }
-        .popup.pos-top::after {
-            top: 100%;
-            bottom: auto;
-            border-color: var(--tooltip-bg) transparent transparent transparent;
-        }
-
-        .popup.pos-bottom {
-            top: 110%; /* Adjusted closer */
-            bottom: auto;
-        }
-        .popup.pos-bottom::after {
-            bottom: 100%;
-            top: auto;
-            border-color: transparent transparent var(--tooltip-bg) transparent;
-        }
+        /* Smart Positioning */
+        .popup.pos-top { bottom: 110%; top: auto; }
+        .popup.pos-top::after { top: 100%; bottom: auto; border-color: var(--tooltip-bg) transparent transparent transparent; }
+        .popup.pos-bottom { top: 110%; bottom: auto; }
+        .popup.pos-bottom::after { bottom: 100%; top: auto; border-color: transparent transparent var(--tooltip-bg) transparent; }
 
         /* Popup Content */
         .bn-text { font-size: 1.1em; margin-bottom: 10px; display: block; color: #fab1a0; line-height: 1.4; }
@@ -216,13 +239,41 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) scale(0.9); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
+        /* Mobile Responsive Header */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding-bottom: 10px;
+            }
+            .header-title-area {
+                text-align: center;
+                width: 100%;
+            }
+            .nav-controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
     </style>
 </head>
 <body class="mode-chunk">
 
 <div class="header">
-    <h1>Father's Help</h1>
-    <div class="subtitle" id="modeIndicator">Phrase Mode (ভেঙে ভেঙে পড়া)</div>
+    <div class="header-title-area">
+        <h1>Father's Help</h1>
+        <div class="subtitle" id="modeIndicator">Phrase Mode</div>
+    </div>
+    
+    <div class="nav-controls">
+        <select id="unitSelect" class="unit-select">
+            <option value="Fatheru1.html">Unit 1</option>
+            <option value="Fatheru2.html">Unit 2</option>
+            <option value="Fatheru3.html" selected>Unit 3</option> <!-- UNIT 3 Selected -->
+        </select>
+        <button onclick="goToUnit()" class="go-btn">Go</button>
+    </div>
 </div>
 
 <div class="container" id="contentArea"></div>
@@ -236,114 +287,120 @@
 </div>
 
 <script>
-    // --- COMPLETE DATA ---
+    function goToUnit() {
+        const url = document.getElementById('unitSelect').value;
+        if(url) {
+            window.location.href = url;
+        }
+    }
+
+    // --- UNIT 3 DATA ---
     const rawData = [
-        { en: "Swami hoped that", bn: "স্বামী আশা করেছিল যে", vocab: { "hoped": "আশা করেছিল" } },
-        { en: "with this", bn: "এর মাধ্যমে" },
-        { en: "his father would be made to see", bn: "তার বাবা বুঝতে পারবেন" },
-        { en: "why he must avoid school", bn: "কেন তার স্কুলে যাওয়া এড়িয়ে চলা উচিত", vocab: { "avoid": "এড়িয়ে চলা" } },
-        { en: "for the day.", bn: "সেদিন।" },
+        { en: "“I have a headache, sir.”", bn: "স্যার, আমার মাথা ব্যথা করছে," , vocab: { "headache": "মাথা ব্যথা" } },
+        { en: "Swami said.", bn: "স্বামী বলল।" },
         { type: "break" },
 
-        { en: "But Father’s behaviour", bn: "কিন্তু বাবার আচরণে", vocab: { "behaviour": "আচরণ" } },
-        { en: "took an unexpected turn.", bn: "এক অপ্রত্যাশিত মোড় এল।", vocab: { "unexpected": "অপ্রত্যাশিত" } },
+        { en: "“Then why did you come at all?”", bn: "তাহলে তুমি আদেও স্কুলে আসলে কেন?" },
         { type: "break" },
 
-        { en: "He proposed to send a letter", bn: "তিনি একটি চিঠি পাঠানোর প্রস্তাব দিলেন", vocab: { "proposed": "প্রস্তাব দিলেন" } },
-        { en: "with Swami", bn: "স্বামীর মাধ্যমে" },
-        { en: "to the headmaster.", bn: "প্রধান শিক্ষকের কাছে।" },
+        { en: "This was an unexpected question", bn: "এটা ছিল এক অপ্রত্যাশিত প্রশ্ন", vocab: { "unexpected": "অপ্রত্যাশিত" } },
+        { en: "from Samuel.", bn: "স্যামুয়েলের কাছ থেকে।" },
         { type: "break" },
 
-        { en: "No amount of protest", bn: "কোনো ওজর-আপত্তিই", vocab: { "protest": "প্রতিবাদ" } },
-        { en: "from Swami", bn: "স্বামীর তরফ থেকে" },
-        { en: "would make him change his mind.", bn: "তার বাবার মত বদলাতে পারল না।" },
+        { en: "Swami said,", bn: "স্বামী বলল," },
+        { en: "“My father said", bn: "“আমার বাবা বললেন" },
+        { en: "I shouldn’t miss school, sir.”", bn: "আমার স্কুল কামাই করা উচিত নয়, স্যার।", vocab: { "miss": "কামাই করা / বাদ দেওয়া" } },
         { type: "break" },
 
-        { en: "By the time Swami was ready", bn: "স্বামী যখন তৈরি হল" },
-        { en: "to leave for school,", bn: "স্কুলে যাওয়ার জন্য," },
-        { en: "Father had composed", bn: "বাবা লিখে ফেলেছেন", vocab: { "composed": "লিখেছেন/রচনা করেছেন" } },
-        { en: "a long letter to the headmaster.", bn: "প্রধান শিক্ষকের জন্য একটি দীর্ঘ চিঠি।" },
+        { en: "Samuel looked impressed.", bn: "স্যামুয়েলকে বেশ খুশি (অভিভূত) মনে হলো।", vocab: { "impressed": "অভিভূত / খুশি" } },
+        { en: "“Your father is quite right.", bn: "“তোমার বাবা একদম ঠিক বলেছেন।" },
+        { en: "We want more parents like him.”", bn: "আমরা তাঁর মতো আরও অভিভাবক চাই।" },
         { type: "break" },
 
-        { en: "He put it in an envelope", bn: "তিনি ওটি একটি খামে ভরলেন", vocab: { "envelope": "খাম" } },
-        { en: "and sealed it.", bn: "এবং মুখ বন্ধ করে দিলেন।", vocab: { "sealed": "সীলমোহর করা" } },
+        { en: "“Oh, you poor man!”", bn: "“ওহ, বেচারা মানুষ!”" },
+        { en: "Swami thought,", bn: "স্বামী মনে মনে ভাবল," },
+        { en: "“you don’t know", bn: "“আপনি জানেন না" },
+        { en: "what my father has done to you.”", bn: "আমার বাবা আপনার কী ব্যবস্থা করেছেন।”" },
         { type: "break" },
 
-        { en: "“What have you written, Father?”", bn: "“তুমি কী লিখেছ, বাবা?”" },
-        { en: "Swami asked apprehensively.", bn: "স্বামী ভয়ে ভয়ে জিজ্ঞাসা করল।", vocab: { "apprehensively": "সশঙ্কিতভাবে" } },
+        { en: "“All right,", bn: "“ঠিক আছে," },
+        { en: "go to your seat.”", bn: "তোমার জায়গায় গিয়ে বসো।”" },
         { type: "break" },
 
-        { en: "“Nothing for you.", bn: "“তোমার জন্য কিছু নয়।" },
-        { en: "Give it to your headmaster", bn: "এটা তোমার প্রধান শিক্ষককে দিয়ে" },
-        { en: "and go to your class.”", bn: "নিজের ক্লাসে চলে যাবে।”" },
+        { en: "Swami sat down,", bn: "স্বামী বসে পড়ল," },
+        { en: "feeling sad.", bn: "দুঃখিত মনে।" },
+        { en: "He had never met anyone", bn: "সে কখনও কারোর সাথে দেখা করেনি" },
+        { en: "as good as Samuel.", bn: "স্যামুয়েলের মতো এত ভালো।" },
         { type: "break" },
 
-        { en: "“Have you written anything", bn: "“তুমি কি কিছু লিখেছ" },
-        { en: "about our teacher Samuel?”", bn: "আমাদের শিক্ষক স্যামুয়েল সম্পর্কে?”" },
+        { en: "The teacher was inspecting", bn: "শিক্ষক দেখছিলেন", vocab: { "inspecting": "পরিদর্শন করা / দেখা" } },
+        { en: "the home lessons.", bn: "বাড়ির কাজ।" },
         { type: "break" },
 
-        { en: "“Yes. Plenty of things.”", bn: "“হ্যাঁ। অনেক কিছুই লিখেছি।”", vocab: { "plenty": "প্রচুর/অনেক" } },
+        { en: "To Swami’s thinking,", bn: "স্বামীর ভাবনা অনুযায়ী," },
+        { en: "this was the time", bn: "এটাই সেই সময়" },
+        { en: "when Samuel got most angry.", bn: "যখন স্যামুয়েল সবথেকে বেশি রেগে যান।" },
         { type: "break" },
 
-        { en: "“What has he done, Father?”", bn: "“তিনি কী করেছেন, বাবা?”" },
+        { en: "But today", bn: "কিন্তু আজ" },
+        { en: "Samuel appeared very gentle.", bn: "স্যামুয়েলকে খুবই শান্ত মনে হচ্ছিল।", vocab: { "gentle": "শান্ত / ভদ্র" } },
         { type: "break" },
 
-        { en: "“Everything is there in the letter.", bn: "“সবকিছুই চিঠিতে লেখা আছে।" },
-        { en: "Give it to your headmaster.”", bn: "এটা তোমার প্রধান শিক্ষককে দিয়ে দেবে।”" },
+        { en: "“Swaminathan, where is your homework?”", bn: "“স্বামীনাথন, তোমার বাড়ির কাজ কোথায়?”" },
         { type: "break" },
 
-        { en: "Swami went to school", bn: "স্বামী স্কুলের পথে চলল" },
-        { en: "feeling that", bn: "এটা ভাবতে ভাবতে যে" },
-        { en: "he was the worst boy on earth.", bn: "সে পৃথিবীর সবথেকে খারাপ ছেলে।", vocab: { "worst": "সবচেয়ে খারাপ" } },
+        { en: "“I have not done my homework, sir,”", bn: "“আমি আমার বাড়ির কাজ করিনি, স্যার,”" },
+        { en: "Swami said.", bn: "স্বামী বলল।" },
         { type: "break" },
 
-        { en: "His conscience bothered him.", bn: "তার বিবেক তাকে দংশন করতে লাগল।", vocab: { "conscience": "বিবেক", "bothered": "বিরক্ত করা" } },
+        { en: "“Why—headache?”", bn: "“কেন—মাথা ব্যথা?”" },
+        { en: "asked Samuel.", bn: "স্যামুয়েল জিজ্ঞাসা করলেন।" },
         { type: "break" },
 
-        { en: "He wasn’t at all sure", bn: "সে মোটেও নিশ্চিত ছিল না" },
-        { en: "if his description of Samuel", bn: "স্যামুয়েল সম্পর্কে তার দেওয়া বর্ণনা", vocab: { "description": "বর্ণনা" } },
-        { en: "had been accurate.", bn: "সঠিক ছিল কিনা।", vocab: { "accurate": "সঠিক" } },
+        { en: "“Yes, sir.”", bn: "“হ্যাঁ, স্যার।”" },
         { type: "break" },
 
-        { en: "He felt he had mixed up", bn: "তার মনে হচ্ছিল সে গুলিয়ে ফেলেছে", vocab: { "mixed up": "গুলিয়ে ফেলা" } },
-        { en: "the real and the imagined.", bn: "বাস্তব আর কল্পনাকে।", vocab: { "imagined": "কল্পিত" } },
+        { en: "“All right, sit down,”", bn: "“ঠিক আছে, বসে পড়ো,”" },
+        { en: "Samuel said.", bn: "স্যামুয়েল বললেন।" },
         { type: "break" },
 
-        { en: "Swami stopped on the roadside", bn: "স্বামী রাস্তার ধারে দাঁড়াল", vocab: { "roadside": "রাস্তার ধার" } },
-        { en: "to make up his mind about Samuel.", bn: "স্যামুয়েল সম্পর্কে মনস্থির করার জন্য।" },
+        { en: "When the bell rang", bn: "যখন ঘণ্টা বাজল" },
+        { en: "for the last period at 4.30,", bn: "সাড়ে চারটেয় শেষ পিরিয়ডের জন্য," },
+        { en: "Swami picked up his books", bn: "স্বামী তার বইপত্র গুছিয়ে নিল" },
+        { en: "and ran to the headmaster’s room.", bn: "এবং দৌড়ে প্রধান শিক্ষকের ঘরের দিকে গেল।" },
         { type: "break" },
 
-        { en: "Samuel was not such a bad man", bn: "স্যামুয়েল অতটা খারাপ মানুষ ছিলেন না" },
-        { en: "after all.", bn: "আদতে।" },
+        { en: "He found the room locked.", bn: "সে দেখল ঘরটি তালাবন্ধ।", vocab: { "locked": "তালাবন্ধ" } },
         { type: "break" },
 
-        { en: "Personally he was much more friendly", bn: "ব্যক্তিগতভাবে তিনি অনেক বেশি বন্ধুসুলভ ছিলেন", vocab: { "friendly": "বন্ধুসুলভ" } },
-        { en: "than the other teachers.", bn: "অন্য শিক্ষকদের তুলনায়।" },
+        { en: "The peon told him", bn: "পিয়ন তাকে বলল" },
+        { en: "the headmaster had gone", bn: "যে প্রধান শিক্ষক গেছেন" },
+        { en: "on a week’s leave.", bn: "এক সপ্তাহের ছুটিতে।" },
         { type: "break" },
 
-        { en: "Swami also felt", bn: "স্বামীর এটাও মনে হল" },
-        { en: "Samuel had a special regard for him.", bn: "যে স্যামুয়েল তাকে বিশেষ স্নেহ করেন।", vocab: { "regard": "শ্রদ্ধা/স্নেহ" } },
+        { en: "Swaminathan ran away from the place.", bn: "স্বামীনাথন সেখান থেকে দৌড়ে পালিয়ে গেল।" },
         { type: "break" },
 
-        { en: "Swami’s head was dizzy", bn: "স্বামীর মাথা ঘুরছিল", vocab: { "dizzy": "মাথা ঝিমঝিম করা" } },
-        { en: "with confusion.", bn: "বিভ্রান্তিতে।", vocab: { "confusion": "বিভ্রান্তি" } },
+        { en: "As soon as he entered home", bn: "বাড়িতে ঢোকার সাথে সাথেই" },
+        { en: "with the letter,", bn: "চিঠি হাতে," },
+        { en: "Father said,", bn: "বাবা বললেন," },
+        { en: "“I knew", bn: "“আমি জানতাম" },
+        { en: "you wouldn’t deliver it.”", bn: "তুমি ওটা জমা দেবে না।”", vocab: { "deliver": "পৌঁছানো / জমা দেওয়া" } },
         { type: "break" },
 
-        { en: "He could not decide", bn: "সে ঠিক করতে পারছিল না" },
-        { en: "if Samuel really deserved", bn: "স্যামুয়েল সত্যিই যোগ্য কিনা", vocab: { "deserved": "যোগ্য হওয়া" } },
-        { en: "the allegations made against him", bn: "তার বিরুদ্ধে করা অভিযোগগুলোর", vocab: { "allegations": "অভিযোগ" } },
-        { en: "in the letter.", bn: "চিঠিতে।" },
+        { en: "“But the headmaster is on leave,”", bn: "“কিন্তু প্রধান শিক্ষক ছুটিতে আছেন,”" },
+        { en: "Swami said.", bn: "স্বামী বলল।" },
         { type: "break" },
 
-        { en: "The more he thought of Samuel,", bn: "সে যত স্যামুয়েলের কথা ভাবতে লাগল," },
-        { en: "the more Swami grieved for him.", bn: "ততই তার জন্য স্বামীর মন দুঃখে ভরে উঠল।", vocab: { "grieved": "দুঃখিত হওয়া" } },
+        { en: "Father snatched the letter away", bn: "বাবা চিঠিটা ছিনিয়ে নিলেন", vocab: { "snatched": "ছিনিয়ে নিল" } },
+        { en: "from Swami", bn: "স্বামীর কাছ থেকে" },
+        { en: "and tore it up.", bn: "এবং সেটা ছিঁড়ে ফেললেন।", vocab: { "tore": "ছিঁড়ে ফেলল" } },
         { type: "break" },
 
-        { en: "To recall Samuel’s dark face,", bn: "স্যামুয়েলের কালো মুখের কথা মনে পড়তেই," },
-        { en: "his thin moustache,", bn: "তার সরু গোঁফ," },
-        { en: "unshaven cheek", bn: "না-কামানো গাল", vocab: { "unshaven": "না-কামানো" } },
-        { en: "and yellow coat", bn: "আর হলুদ কোট" },
-        { en: "filled Swaminathan with sorrow.", bn: "স্বামীনাথন দুঃখে কাতর হয়ে পড়ল।", vocab: { "sorrow": "দুঃখ" } }
+        { en: "“Don’t ever come to me for help", bn: "“আমার কাছে আর সাহায্যের জন্য এসো না" },
+        { en: "if Samuel scolds you again.", bn: "যদি স্যামুয়েল তোমাকে আবার বকুনি দেয়।", vocab: { "scolds": "বকাঝকা করা" } },
+        { en: "You deserve your Samuel,”", bn: "তোমার কপালে স্যামুয়েলই জুটুক,”", vocab: { "deserve": "প্রাপ্য / যোগ্য হওয়া" } },
+        { en: "he said.", bn: "তিনি বললেন।" }
     ];
 
     // --- STATE & SETUP ---
@@ -362,7 +419,7 @@
         if(document.body.classList.contains('dark-mode')) document.body.classList.add('dark-mode');
         if(document.body.classList.contains('focus-mode')) document.body.classList.add('focus-mode');
 
-        modeIndicator.innerText = isFullMode ? "Full Sentence Mode (পুরো বাক্য)" : "Phrase Mode (ভেঙে ভেঙে পড়া)";
+        modeIndicator.innerText = isFullMode ? "Full Sentence Mode" : "Phrase Mode (ভেঙে ভেঙে পড়া)";
 
         if (isFullMode) {
             renderFullMode();
@@ -373,9 +430,7 @@
 
     function renderChunkMode() {
         rawData.forEach(item => {
-            if (item.type === "break") {
-                return;
-            }
+            if (item.type === "break") { return; }
             createUnit(item.en, item.bn, item.vocab);
         });
     }
@@ -411,7 +466,7 @@
         }
     }
 
-    // --- UNIT CREATOR WITH FIXED POSITIONING LOGIC ---
+    // --- UNIT CREATOR ---
     function createUnit(enText, bnText, vocabObj) {
         const unit = document.createElement('div');
         unit.className = 'text-unit';
@@ -457,7 +512,7 @@
         
         unit.appendChild(popup);
 
-        // --- CLICK EVENT WITH IMPROVED LOGIC ---
+        // --- CLICK EVENT WITH SMART POSITIONING ---
         unit.onclick = (e) => {
             e.stopPropagation();
             if (unit.classList.contains('active')) {
@@ -466,12 +521,9 @@
                 reset();
                 unit.classList.add('active');
                 
-                // FIXED LOGIC: চেক করবে হেডারের নিচে জায়গা আছে কি না
                 const rect = unit.getBoundingClientRect();
                 const headerHeight = document.querySelector('.header').offsetHeight || 60;
                 
-                // যদি এলিমেন্টটি স্ক্রিনের একদম ওপরের দিকে থাকে (হেডারের কাছে), 
-                // তবে পপআপ নিচে দেখাও (pos-bottom)। নাহলে ওপরে (pos-top)।
                 if (rect.top < (headerHeight + 220)) { 
                     popup.classList.remove('pos-top');
                     popup.classList.add('pos-bottom');
@@ -491,7 +543,6 @@
         stopAudio();
         const u = new SpeechSynthesisUtterance(text);
         u.lang = lang;
-        // User Setting: 0.50
         u.rate = isSlow ? 0.50 : 1.0; 
 
         btn.classList.add('playing');
@@ -542,7 +593,7 @@
     };
 
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.dock') && !e.target.closest('.text-unit')) {
+        if (!e.target.closest('.dock') && !e.target.closest('.text-unit') && !e.target.closest('.header')) {
             reset();
         }
     });
