@@ -1,14 +1,120 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Announcements</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            /* Theme: grey_surface */
+            background-color: #1E1E1E; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .announcement-card {
+            background-color: #151515; /* Dark background for contrast */
+            /* Theme: black_background (Deep Red Theme) */
+            border-top: 4px solid #6D0600; 
+            border-bottom: 4px solid #6D0600;
+            border-radius: 12px;
+            padding: 25px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            /* Theme: orange_accent */
+            color: #F08537; 
+            font-size: 24px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        ol {
+            list-style: none;
+            counter-reset: custom-counter;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            counter-increment: custom-counter;
+            margin-bottom: 25px;
+            padding-left: 55px;
+            position: relative;
+            /* Theme: grey_text */
+            color: #B0B0B0; 
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        /* Custom Styling for Numbered Bullets */
+        li::before {
+            content: counter(custom-counter);
+            position: absolute;
+            left: 0;
+            top: -2px;
+            /* Theme: black_background (Deep Red) */
+            background-color: #6D0600; 
+            /* Theme: white_text */
+            color: #FFFFFF;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            /* Theme: orange_accent border for glow effect */
+            border: 2px solid #F08537; 
+            box-shadow: 0 0 10px rgba(240, 133, 55, 0.3);
+        }
+        .title {
+            /* Theme: white_text */
+            color: #FFFFFF; 
+            font-size: 17px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .highlight {
+            /* Theme: orange_accent */
+            color: #F08537;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
-   <h1>No Announcement At this time.</h1>  
-</body>
 
+    <div class="announcement-card">
+        <h1>📢 Announcements</h1>  
+        <ol>
+            <li>
+                <span class="title">Free Daily Matches</span>
+                Free daily Lone Wolf matches are organized for everyone.
+            </li>
+            <li>
+                <span class="title">Paid Rooms</span>
+                Daily paid Lone Wolf rooms are available at <span class="highlight">9:00 AM</span>.
+            </li>
+            <li>
+                <span class="title">Promote & Earn</span>
+                Promote our app to earn Free Coins and get a special shoutout on the <span class="highlight">App Banner</span>!
+            </li>
+        </ol>
+    </div>
+
+</body>
 </html>
