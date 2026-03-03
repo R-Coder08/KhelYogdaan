@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khel Yogdaan </title>
+    <title>Khel Yogdaan</title>
     <meta name="description" content="Download Khel Yogdaan - The Ultimate Esports Tournament App.">
-    
     <meta name="theme-color" content="#FFE52A">
 
     <!-- Fonts -->
@@ -54,6 +53,20 @@
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .faq-active .faq-content { max-height: 200px; }
         .faq-active i { transform: rotate(180deg); }
+
+        /* FLIP TEXT ANIMATION CSS */
+        .flip-container { perspective: 1000px; }
+        .flipping-text {
+            display: inline-block;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+            transform-origin: center bottom;
+            backface-visibility: hidden;
+        }
+        .flip-out { transform: rotateX(-90deg) translateY(10px); opacity: 0; }
+        .flip-in { transform: rotateX(0deg) translateY(0); opacity: 1; }
+
+        /* PHONE CAROUSEL TRANSITIONS */
+        .fade-transition { transition: opacity 0.5s ease-in-out; }
     </style>
 </head>
 <body class="antialiased relative">
@@ -65,7 +78,6 @@
     <!-- 1. Navbar & Mobile Menu -->
     <nav class="fixed w-full z-40 glass transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo -->
             <a href="#" class="flex items-center gap-2 group">
                 <div class="w-10 h-10 bg-khel-accent rounded-lg flex items-center justify-center shadow-neon">
                     <i class="fa-solid fa-gamepad text-white text-xl"></i>
@@ -73,7 +85,6 @@
                 <span class="font-display font-bold text-2xl tracking-wide">KHEL <span class="text-khel-accent">YOGDAAN</span></span>
             </a>
 
-            <!-- Desktop Links -->
             <div class="hidden md:flex items-center gap-8">
                 <a href="#features" class="hover:text-khel-accent transition-colors">Features</a>
                 <a href="#faq" class="hover:text-khel-accent transition-colors">FAQ</a>
@@ -83,7 +94,6 @@
                 </button>
             </div>
 
-            <!-- Mobile Toggle -->
             <button class="md:hidden text-2xl text-white" onclick="toggleMobileMenu()">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -107,13 +117,17 @@
     <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
-                <div class="inline-block bg-khel-accent/10 border border-khel-accent/20 px-4 py-1 rounded-full text-khel-accent text-sm font-semibold mb-6">
-                    <i class="fa-solid fa-fire mr-2"></i>INDIA'S #1 ESPORTS PLATFORM
+                
+                <!-- ANIMATED TEXT PILL -->
+                <div class="inline-block bg-khel-accent/10 border border-khel-accent/20 px-4 py-2 rounded-full text-khel-accent text-sm font-semibold mb-6 flip-container">
+                    <i class="fa-solid fa-fire mr-2 animate-pulse"></i>
+                    <span id="rotating-text" class="flipping-text flip-in tracking-wider">INDIA'S #1 FF ESPORTS PLATFORM</span>
                 </div>
+
                 <h1 class="font-display font-bold text-5xl lg:text-7xl leading-tight mb-6">
-                    PLAY <span class="text-gradient">FREE FIRE</span> <br> WIN REAL CASH
+                    BEST <span class="text-gradient">SKILL BASED</span> <br>TOURNAMENT PLATFORM
                 </h1>
-                <p class="text-gray-400 text-lg mb-8 max-w-lg">Join daily tournaments, kill enemies, and withdraw winnings instantly via UPI.</p>
+                <p class="text-gray-400 text-lg mb-8 max-w-lg">Play daily tournaments, eliminate enemies, and withdraw winnings instantly via UPI and Google Reedem Code's.</p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <button onclick="startDownloadProcess()" class="bg-khel-accent hover:bg-khel-accentHover text-white px-8 py-4 rounded-lg font-bold text-lg shadow-neon flex items-center justify-center gap-3 transition-transform hover:scale-105">
                         <i class="fa-brands fa-android text-xl"></i> Download APP
@@ -122,17 +136,20 @@
                 </div>
             </div>
             
-            <!-- Phone Mockup -->
+            <!-- CLEAN PHONE MOCKUP -->
             <div class="relative z-10 flex justify-center lg:justify-end" data-aos="fade-left">
-                <div class="relative w-[280px] h-[580px] border-[12px] border-[#2a2a2a] rounded-[3rem] bg-[#121212] shadow-2xl animate-float overflow-hidden">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#2a2a2a] rounded-b-xl z-20"></div>
-                    <img src="1765833011992.jpg" class="w-full h-full object-cover opacity-80">
-                    <div class="absolute bottom-8 left-4 right-4 z-20 glass p-4 rounded-xl border-l-4 border-khel-accent">
-                        <h3 class="font-display font-bold text-xl">Bermuda | Squad</h3>
-                        <div class="flex justify-between mt-2 text-sm">
-                            <span class="text-gray-300">Entry: <b class="text-white">₹20</b></span>
-                            <span class="text-khel-accent font-bold">Prize: ₹1200</span>
-                        </div>
+                <!-- Phone Frame -->
+                <div class="relative w-[320px] lg:w-[350px] h-[660px] lg:h-[720px] border-[12px] lg:border-[14px] border-[#2a2a2a] rounded-[3rem] bg-[#121212] shadow-2xl animate-float overflow-hidden flex flex-col">
+                    
+                    <!-- App Screenshot Image -->
+                    <img id="carousel-img" src="imgs/1.png" class="absolute inset-0 w-full h-full object-cover object-center fade-transition z-10" alt="App Screenshot">
+                    
+                    <!-- Gradient for dots background -->
+                    <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+
+                    <!-- Small Pagination Dots -->
+                    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-30" id="carousel-dots">
+                        <!-- Dots will be generated by JS -->
                     </div>
                 </div>
             </div>
@@ -144,19 +161,19 @@
         <div class="max-w-7xl mx-auto px-6 py-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
                 <div>
-                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="15000">0</span>+</h3>
-                    <p class="text-gray-400 text-sm mt-1">Active Gamers</p>
+                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="100">0</span>+</h3>
+                    <p class="text-gray-400 text-sm mt-1">Active Users</p>
                 </div>
                 <div>
-                    <h3 class="font-display text-4xl font-bold text-white">₹<span class="counter" data-target="500">0</span>K+</h3>
+                    <h3 class="font-display text-4xl font-bold text-white">₹<span class="counter" data-target="760">0</span>+</h3>
                     <p class="text-gray-400 text-sm mt-1">Paid Winnings</p>
                 </div>
                 <div>
-                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="50">0</span>+</h3>
-                    <p class="text-gray-400 text-sm mt-1">Daily Matches</p>
+                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="20">0</span>+</h3>
+                    <p class="text-gray-400 text-sm mt-1">Daily Matches Available</p>
                 </div>
                 <div>
-                    <h3 class="font-display text-4xl font-bold text-white">4.8</h3>
+                    <h3 class="font-display text-4xl font-bold text-white">4.6</h3>
                     <p class="text-gray-400 text-sm mt-1">App Rating</p>
                 </div>
             </div>
@@ -172,18 +189,18 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="0">
                     <i class="fa-solid fa-bolt text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Instant UPI</h3>
-                    <p class="text-gray-400">Withdraw winnings to Paytm, PhonePe, or GPay within 30 seconds.</p>
+                    <h3 class="text-xl font-bold mb-2">Instant withdrawal</h3>
+                    <p class="text-gray-400">Withdraw winnings to PhonePe, GPay, Fampay, Google Reedem Code within 20 mins.</p>
                 </div>
                 <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="100">
                     <i class="fa-solid fa-shield-virus text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Anti-Cheat System</h3>
-                    <p class="text-gray-400">Our advanced AI detects hackers instantly. Fair play guaranteed.</p>
+                    <h3 class="text-xl font-bold mb-2">Cheat Prohibited</h3>
+                    <p class="text-gray-400">No hackers & Cheaters instantly Banned From match room. Fair play guaranteed in every matches.</p>
                 </div>
                 <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fa-solid fa-users text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Refer & Earn</h3>
-                    <p class="text-gray-400">Invite friends and get ₹10 bonus cash for every successful referral.</p>
+                    <i class="fa-solid fa-gift text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
+                    <h3 class="text-xl font-bold mb-2">Surprise Gifts</h3>
+                    <p class="text-gray-400">Join our official WhatsApp group for exclusive giveaways! Chance to win free coins. Giveways organised to after 1-2 weeks.</p>
                 </div>
             </div>
         </div>
@@ -203,18 +220,18 @@
                     </div>
                     <div class="faq-content bg-black/20">
                         <div class="p-5 pt-0 text-gray-400 text-sm">
-                            Yes, absolutely! We use secure payment gateways. Your winnings are held in a separate escrow account.
+                            Yes, absolutely! We use secured manual payment no bug & glitches instantly coins added to your account. Your winnings are held in a separate escrow account.
                         </div>
                     </div>
                 </div>
                 <div class="glass rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
                     <div class="p-5 flex justify-between items-center">
-                        <h4 class="font-bold">How to join a tournament?</h4>
+                        <h4 class="font-bold">How to Play Tournaments?</h4>
                         <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
                     </div>
                     <div class="faq-content bg-black/20">
                         <div class="p-5 pt-0 text-gray-400 text-sm">
-                            1. Download App. 2. Add Money. 3. Select a Match. 4. Copy Room ID/Password (shared 10 mins before match).
+                            1. Download The KhelYogdaan App from offcial website.<br>2. Goto Wallet Add Money to your account.<br> 3. Select a Matches from matches screen.<br> 4. Copy Room ID/Password otherwise tap the Auto Join Room option then just fill password (shared 15 mins before match).
                         </div>
                     </div>
                 </div>
@@ -228,34 +245,34 @@
             <h2 class="font-display font-bold text-2xl mb-4">KHEL <span class="text-khel-accent">YOGDAAN</span></h2>
             <div class="flex justify-center gap-6 mb-8">
                 <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="https://whatsapp.com/channel/0029Vb7rJifG8l59TI5Sf346" class="text-gray-400 hover:text-white"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
             </div>
             <p class="text-gray-600 text-sm">&copy; <span id="year"></span> Khel Yogdaan Esports. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- ================= MODALS ================= -->
-
-    <!-- Download Progress Modal -->
     <div id="downloadModal" class="fixed inset-0 z-[60] bg-black/90 hidden flex items-center justify-center backdrop-blur-sm">
-        <div class="bg-[#1E1E1E] border border-khel-accent p-8 rounded-2xl w-full max-w-md mx-6 text-center shadow-neon relative">
+        <div class="bg-[#1E1E1E] border border-khel-accent p-8 rounded-3xl w-full max-w-sm mx-6 text-center shadow-neon relative">
             <button onclick="closeDownloadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             
             <div id="dl-start-view">
                 <i class="fa-brands fa-android text-5xl text-khel-accent mb-4 animate-bounce"></i>
-                <h3 class="text-2xl font-bold font-display mb-2">Connecting to Server...</h3>
-                <p class="text-gray-400 text-sm mb-6">Preparing Download...</p>
-                <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
-                    <div id="progressBar" class="bg-khel-accent h-4 rounded-full" style="width: 0%"></div>
+                
+                <h3 id="dl-title" class="text-xl font-bold font-display mb-2 text-white">Checking Updated version...</h3>
+                <p id="dl-subtitle" class="text-gray-400 text-sm mb-6">Connecting to server...</p>
+                
+                <div id="progress-container" class="w-full bg-gray-700 rounded-full h-3 mb-4 overflow-hidden hidden">
+                    <div id="progressBar" class="bg-khel-accent h-3 rounded-full transition-all duration-200" style="width: 0%"></div>
                 </div>
-                <p id="progressText" class="text-khel-accent font-bold text-sm">Initializing...</p>
+                <p id="progressText" class="text-khel-accent font-bold text-sm hidden">0%</p>
             </div>
 
             <div id="dl-finish-view" class="hidden">
                 <i class="fa-solid fa-circle-check text-5xl text-green-500 mb-4"></i>
                 <h3 class="text-2xl font-bold font-display mb-2">Download Started!</h3>
                 <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="KhelYogdaan-v0.74.4-beta.apk" class="text-khel-accent underline" download>click here</a>.</p>
-                <button onclick="closeDownloadModal()" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg text-sm">Close</button>
+                <button onclick="closeDownloadModal()" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-2 rounded-full text-sm font-bold">Close</button>
             </div>
         </div>
     </div>
@@ -265,6 +282,68 @@
     <script>
         AOS.init({ offset: 50, duration: 800, once: true });
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- 1. FLIP TEXT ANIMATION LOGIC ---
+        const phrases = [
+            "INDIA'S #1 FF ESPORTS PLATFORM",
+            "DAILY LIVE TOURNAMENTS",
+            "FASTEST WITHDRAWALS",
+            "SECURE & SAFE PLATFORM"
+        ];
+        let phraseIndex = 0;
+        const textElement = document.getElementById('rotating-text');
+
+        setInterval(() => {
+            textElement.classList.remove('flip-in');
+            textElement.classList.add('flip-out');
+
+            setTimeout(() => {
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                textElement.innerText = phrases[phraseIndex];
+                
+                textElement.classList.remove('flip-out');
+                textElement.classList.add('flip-in');
+            }, 600);
+        }, 3000); 
+
+
+        // --- 2. CLEAN PHONE SCREEN CAROUSEL LOGIC ---
+        // Yahan sirf images ke path aayenge kyunki text card remove ho chuka hai
+        const appScreens = [
+            "imgs/1.png",
+            "imgs/2.png", 
+            "imgs/3.png", 
+            "imgs/4.png", 
+            "imgs/5.png", 
+            "imgs/6.png", 
+            "imgs/7.png"
+        ];
+
+        let currentScreenIndex = 0;
+        const carouselImg = document.getElementById('carousel-img');
+        const dotsContainer = document.getElementById('carousel-dots');
+
+        appScreens.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-khel-accent w-5' : 'bg-gray-500'}`;
+            dotsContainer.appendChild(dot);
+        });
+        const dots = dotsContainer.children;
+
+        setInterval(() => {
+            carouselImg.classList.add('opacity-0');
+
+            setTimeout(() => {
+                currentScreenIndex = (currentScreenIndex + 1) % appScreens.length;
+                carouselImg.src = appScreens[currentScreenIndex];
+
+                Array.from(dots).forEach((dot, i) => {
+                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === currentScreenIndex ? 'bg-khel-accent w-5' : 'bg-gray-500'}`;
+                });
+
+                carouselImg.classList.remove('opacity-0');
+            }, 500); 
+        }, 3500); 
 
         // Mobile Menu
         function toggleMobileMenu() {
@@ -280,48 +359,62 @@
             element.classList.toggle('faq-active');
         }
 
-        // --- REAL DOWNLOAD LOGIC ---
+        // --- 3. DOWNLOAD LOGIC ---
         function startDownloadProcess() {
             const modal = document.getElementById('downloadModal');
             const startView = document.getElementById('dl-start-view');
             const finishView = document.getElementById('dl-finish-view');
+            
+            const title = document.getElementById('dl-title');
+            const subtitle = document.getElementById('dl-subtitle');
+            const barContainer = document.getElementById('progress-container');
             const bar = document.getElementById('progressBar');
             const text = document.getElementById('progressText');
 
             modal.classList.remove('hidden');
             startView.classList.remove('hidden');
             finishView.classList.add('hidden');
-            bar.style.width = '0%';
             
-            // Simulation
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    text.textContent = 'Starting Download...';
-                    
-                    setTimeout(() => {
-                        // 1. Show Finished View
-                        startView.classList.add('hidden');
-                        finishView.classList.remove('hidden');
+            bar.style.width = '0%';
+            barContainer.classList.add('hidden'); 
+            text.classList.add('hidden');
+            
+            title.textContent = 'Checking Updated version...';
+            subtitle.textContent = 'Connecting to server...';
 
-                        // 2. TRIGGER ACTUAL DOWNLOAD
-                        // Hum ek invisible link banayenge aur uspar click karenge
-                        const link = document.createElement('a');
-                        link.href = 'KhelYogdaan-v0.74.4-beta.apk'; // IMPORTANT: File name here
-                        link.download = 'KhelYogdaan-v0.74.4-beta.apk'; 
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
+            setTimeout(() => {
+                title.innerHTML = 'Version <span class="text-khel-accent">v0.74.4-beta</span> found';
+                subtitle.textContent = 'Preparing Download...';
+                
+                barContainer.classList.remove('hidden');
+                text.classList.remove('hidden');
+                
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
                         
-                    }, 800);
-                } else {
-                    width += Math.random() * 15; 
-                    if(width > 100) width = 100;
-                    bar.style.width = width + '%';
-                    text.textContent = Math.round(width) + '%';
-                }
-            }, 250);
+                        setTimeout(() => {
+                            startView.classList.add('hidden');
+                            finishView.classList.remove('hidden');
+
+                            const link = document.createElement('a');
+                            link.href = 'KhelYogdaan-v0.74.4-beta.apk'; 
+                            link.download = 'KhelYogdaan-v0.74.4-beta.apk'; 
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            
+                        }, 500);
+                    } else {
+                        width += Math.random() * 12; 
+                        if(width > 100) width = 100;
+                        bar.style.width = width + '%';
+                        text.textContent = Math.round(width) + '%';
+                    }
+                }, 200);
+
+            }, 1500); 
         }
 
         function closeDownloadModal() {
