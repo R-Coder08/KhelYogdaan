@@ -271,7 +271,7 @@
             <div id="dl-finish-view" class="hidden">
                 <i class="fa-solid fa-circle-check text-5xl text-green-500 mb-4"></i>
                 <h3 class="text-2xl font-bold font-display mb-2">Download Started!</h3>
-                <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="KhelYogdaan-v0.74.4-beta.apk" class="text-khel-accent underline" download>click here</a>.</p>
+                <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="app/KhelYogdaan-v0.76.0-beta.apk" class="text-khel-accent underline" download>click here</a>.</p>
                 <button onclick="closeDownloadModal()" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-2 rounded-full text-sm font-bold">Close</button>
             </div>
         </div>
@@ -383,7 +383,7 @@
             subtitle.textContent = 'Connecting to server...';
 
             setTimeout(() => {
-                title.innerHTML = 'Version <span class="text-khel-accent">v0.74.4-beta</span> found';
+                title.innerHTML = 'Version <span class="text-khel-accent">v0.76.0-beta</span> found';
                 subtitle.textContent = 'Preparing Download...';
                 
                 barContainer.classList.remove('hidden');
@@ -399,8 +399,8 @@
                             finishView.classList.remove('hidden');
 
                             const link = document.createElement('a');
-                            link.href = 'KhelYogdaan-v0.74.4-beta.apk'; 
-                            link.download = 'KhelYogdaan-v0.74.4-beta.apk'; 
+                            link.href = 'app/KhelYogdaan-v0.76.0-beta.apk'; 
+                            link.download = 'app/KhelYogdaan-v0.76.0-beta.apk'; 
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
