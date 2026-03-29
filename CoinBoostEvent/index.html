@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus Event - Khel Yogdaan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Khand:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <style>
+        /* --- Color Variables --- */
+        :root {
+            --wood-frame: #6b3e1b;
+            --wood-frame-dark: #4a2910;
+            --wood-plank: #3d2310;
+            --wood-line: #2c180a;
+            --primary-orange: #ff6600;
+            --light-orange: #ff9933;
+            --neon-blue: #00aaff;
+            --metal-bg: #1a1a1a;
+            --metal-border: #333333;
+            --metal-highlight: #444444;
+            --bg-dark: #000000;
+            --text-white: #ffffff;
+            --text-grey: #bbbbbb;
+        }
+
+        /* --- Base Setup --- */
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden; 
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+        }
+
+        /* --- Check Status Button (Top Right) --- */
+        .status-btn {
+            position: fixed;
+            top: 15px; right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px; font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; z-index: 10000;
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+            display: flex; align-items: center; gap: 6px;
+            transition: all 0.3s ease;
+        }
+        .status-btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px rgba(0, 170, 255, 0.6); }
+
+        /* --- Custom Classes For Image Icons --- */
+        .img-icon-large { width: clamp(40px, 12vw, 60px); height: clamp(40px, 12vw, 60px); object-fit: contain; margin-bottom: 20px; animation: rotatePhone 2s infinite ease-in-out; }
+        .img-icon-small { width: clamp(14px, 4vw, 18px); height: clamp(14px, 4vw, 18px); object-fit: contain; }
+        .img-icon-btn { width: clamp(16px, 5vw, 20px); height: clamp(16px, 5vw, 20px); object-fit: contain; }
+        .img-icon-calc { width: clamp(14px, 4vw, 16px); height: clamp(14px, 4vw, 16px); object-fit: contain; }
+        .img-icon-input { 
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%); 
+            width: clamp(16px, 5vw, 20px); height: clamp(16px, 5vw, 20px); object-fit: contain; z-index: 10; 
+        }
+
+        /* --- Smooth Split Splash Screen --- */
+        #splashScreen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 20000; overflow: hidden;
+        }
+        .splash-panel { position: absolute; top: 0; height: 100%; width: 50%; background-color: #000; z-index: 1; }
+        .splash-panel.left { left: 0; animation: splitLeft 1.2s cubic-bezier(0.86, 0, 0.07, 1) 2.2s forwards; }
+        .splash-panel.right { right: 0; animation: splitRight 1.2s cubic-bezier(0.86, 0, 0.07, 1) 2.2s forwards; }
+
+        .splash-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: fadeContentOut 0.4s ease-in 1.8s forwards; }
+        #splashLogo { width: clamp(200px, 60vw, 300px); animation: smoothMeteor 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; opacity: 0; }
+        #splashText {
+            font-family: 'Khand', sans-serif; font-size: clamp(26px, 8vw, 40px); text-transform: uppercase; letter-spacing: 2px;
+            margin-top: 20px; opacity: 0; display: flex; justify-content: center; align-items: center; gap: 8px;
+            animation: textFadeIn 0.8s ease-out 0.6s forwards;
+        }
+        .splash-khel { color: #ffffff; } .splash-yogdaan { color: var(--primary-orange); }
+
+        @keyframes smoothMeteor { 0% { transform: translateY(-400px) scale(0.6); opacity: 0; filter: blur(8px); } 100% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0px); } }
+        @keyframes textFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeContentOut { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); visibility: hidden; } }
+        @keyframes splitLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        @keyframes splitRight { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+
+        /* --- Announcement Modal (Rules Pop-up) --- */
+        #announcementModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            z-index: 15000; justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
+        }
+        .announcement-content {
+            background: var(--metal-bg); border: 3px solid var(--primary-orange);
+            border-radius: 15px; padding: clamp(20px, 6vw, 30px) clamp(15px, 5vw, 25px);
+            max-width: 400px; width: 100%; text-align: center;
+            box-shadow: 0 0 40px rgba(255, 102, 0, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
+            animation: popInBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+        }
+        .announcement-content::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shimmerSweep 3s infinite; pointer-events: none;
+        }
+        .announcement-title {
+            color: var(--primary-orange); font-family: 'Khand', sans-serif;
+            font-size: clamp(22px, 7vw, 28px); margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1.5px;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.4);
+        }
+        .announcement-body {
+            color: #ddd; font-size: clamp(13px, 4vw, 15px); text-align: left;
+            margin-bottom: 25px; line-height: 1.6; max-height: 50vh; overflow-y: auto; padding-right: 5px;
+        }
+        .announcement-body::-webkit-scrollbar { width: 5px; }
+        .announcement-body::-webkit-scrollbar-track { background: #111; border-radius: 5px; }
+        .announcement-body::-webkit-scrollbar-thumb { background: var(--primary-orange); border-radius: 5px; }
+        
+        .announcement-body ul { padding-left: 20px; margin: 10px 0; color: var(--text-white); }
+        .announcement-body li { margin-bottom: 10px; font-weight: 600; }
+        .announcement-body li::marker { color: var(--neon-blue); font-size: 1.2em; }
+        .announcement-body b, .announcement-body strong { font-weight: 800; color: #fff; }
+        .announcement-body i, .announcement-body em { font-style: italic; color: var(--light-orange); }
+        
+        .btn-get-started {
+            background: linear-gradient(135deg, var(--neon-blue), #0066cc);
+            border: 2px solid #33bbff; color: white; padding: 14px 30px;
+            font-size: clamp(14px, 4.5vw, 16px); font-weight: 900; font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase; border-radius: 10px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4); transition: all 0.3s ease;
+            letter-spacing: 2px; width: 100%; position: relative; z-index: 2;
+        }
+        .btn-get-started:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 170, 255, 0.7); background: linear-gradient(135deg, #33bbff, #0077ff); }
+        .btn-get-started:active { transform: translateY(2px) scale(0.97); box-shadow: 0 2px 10px rgba(0, 170, 255, 0.4); }
+        .btn-get-started:disabled {
+            background: #333; border: 2px solid #555; color: #888;
+            cursor: not-allowed; box-shadow: none; transform: none;
+        }
+        
+        @keyframes popInBounce { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes fadeOutAnim { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.9); visibility: hidden; } }
+
+        /* --- Device Restriction Screen --- */
+        .device-warning {
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; width: 100vw; background: var(--bg-dark); text-align: center;
+            padding: 20px; box-sizing: border-box; position: fixed; top: 0; left: 0; z-index: 9999;
+        }
+        @keyframes rotatePhone { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(90deg); } }
+        .device-warning h2 { color: var(--primary-orange); margin-bottom: 10px; text-transform: uppercase; font-size: clamp(20px, 6vw, 24px); }
+        .device-warning p { color: var(--text-grey); font-size: clamp(12px, 4vw, 14px); margin-bottom: 30px; line-height: 1.5; }
+        .btn-back { background: var(--primary-orange); color: #000; border: none; padding: 12px 30px; font-size: 16px; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; }
+
+        @media (min-width: 768px), (orientation: landscape) { .main-wrapper { display: none !important; } .device-warning { display: flex !important; } }
+
+        /* --- Sophisticated Background Animation --- */
+        .bg-animations { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .bg-animations::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(255,102,0,0.15) 0%, rgba(255,102,0,0.05) 30%, rgba(0,0,0,0) 70%);
+            border-radius: 50%; filter: blur(80px); animation: orbFloat 20s infinite linear;
+        }
+        .bg-animations::after {
+            content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            background-image: radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px), radial-gradient(white, rgba(255,255,255,.05) 1px, transparent 2px);
+            background-size: 550px 550px, 350px 350px; background-position: 0 0, 40px 60px; animation: particleUp 60s infinite linear; opacity: 0.1;
+        }
+        @keyframes orbFloat { 0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 0.7; } 50% { transform: translate(-50%, -55%) rotate(180deg) scale(1.1); opacity: 1; } 100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); opacity: 0.7; } }
+        @keyframes particleUp { 0% { background-position: 0 0, 40px 60px; } 100% { background-position: 0 -550px, 40px -610px; } }
+
+        /* --- Main Layout Wrapper --- */
+        .main-wrapper { display: flex; flex-direction: column; width: 100%; }
+        .hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; width: 100%; padding: clamp(10px, 3vw, 20px); box-sizing: border-box; position: relative; z-index: 1; }
+
+        /* --- Wooden Event Card --- */
+        .event-card {
+            background-color: var(--wood-plank);
+            background-image: repeating-linear-gradient(180deg, var(--wood-plank), var(--wood-plank) 38px, var(--wood-line) 40px, var(--wood-line) 42px), linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: auto, 10px 10px, 10px 10px;
+            border: 12px solid var(--wood-frame); border-radius: 18px; border-bottom-color: var(--wood-frame-dark); border-right-color: var(--wood-frame-dark);
+            padding: clamp(25px, 6vw, 40px) clamp(15px, 4vw, 25px); width: 100%; max-width: 450px;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 15px 35px rgba(255, 102, 0, 0.15);
+            text-align: center; position: relative; box-sizing: border-box; margin-top: clamp(30px, 8vw, 50px);
+        }
+        .event-card::before { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border: 2px solid rgba(0, 0, 0, 0.4); border-radius: 4px; pointer-events: none; }
+
+        /* 3s Shining Effect For Main Wooden Box */
+        .shine-overlay {
+            position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border-radius: 4px; overflow: hidden; pointer-events: none; z-index: 50;
+        }
+        .shine-overlay::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shimmerSweep 3s infinite;
+        }
+        @keyframes shimmerSweep { 0% { left: -100%; } 100% { left: 200%; } }
+
+        /* OVERLAPPING LARGE LOGO */
+        .gift-img { width: clamp(150px, 45vw, 210px); margin-top: clamp(-70px, -20vw, -95px); margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--neon-blue)); animation: float 3s ease-in-out infinite; position: relative; z-index: 60; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* Title */
+        .event-title {
+            font-family: 'Khand', sans-serif; font-size: clamp(26px, 8vw, 36px); font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; background: linear-gradient(180deg, #fff 40%, #ffcc99 60%, var(--primary-orange) 80%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 15px 0;
+            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.8)) drop-shadow(0 0 10px rgba(255,102,0,0.5)); position: relative; z-index: 2;
+        }
+
+        /* Offer Section */
+        .offer-highlight {
+            background: rgba(0, 0, 0, 0.6); border: 2px dashed var(--primary-orange); border-radius: 12px;
+            padding: clamp(10px, 3vw, 15px) clamp(8px, 2vw, 10px); margin-bottom: 25px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; gap: 5px; position: relative; z-index: 2; box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+        .offer-main-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: clamp(6px, 2vw, 10px); }
+        .offer-pay { font-size: clamp(13px, 4vw, 15px); font-weight: 800; color: var(--text-white); }
+        .offer-get { font-size: clamp(15px, 5vw, 18px); font-weight: 900; color: var(--primary-orange); text-shadow: 0 0 10px rgba(255, 102, 0, 0.4); }
+        .offer-subtext { font-size: clamp(10px, 3vw, 12px); font-weight: 800; letter-spacing: 1px; color: var(--text-white); background: var(--primary-orange); padding: 4px 10px; border-radius: 20px; margin-top: 5px; }
+
+        /* --- QR Button --- */
+        .btn-qr {
+            background: rgba(0,0,0,0.7); border: 2px solid var(--neon-blue); color: var(--neon-blue);
+            font-size: clamp(13px, 4vw, 15px); font-family: 'Montserrat', sans-serif; font-weight: 800;
+            padding: clamp(10px, 3vw, 12px) clamp(10px, 3vw, 20px); width: 100%; border-radius: 10px; text-transform: uppercase;
+            letter-spacing: 1px; cursor: pointer; position: relative; z-index: 2; transition: all 0.3s ease;
+            margin-bottom: 20px; box-shadow: 0 0 10px rgba(0, 170, 255, 0.2); display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-qr:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px rgba(0, 170, 255, 0.6); }
+
+        /* --- Coin Calculator --- */
+        .coin-calculator {
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 102, 0, 0.3); border-radius: 10px;
+            padding: clamp(8px, 2vw, 12px) 10px; margin-bottom: 20px; font-size: clamp(11px, 3.5vw, 13px); font-weight: 700; color: #ccc;
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(4px, 1.5vw, 6px);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8); position: relative; z-index: 2;
+        }
+        .calc-val { color: var(--primary-orange); font-size: clamp(14px, 4.5vw, 16px); font-weight: 900; }
+        .calc-bonus { color: var(--neon-blue); font-weight: 800; }
+
+        /* --- Metal Inputs --- */
+        .custom-input-group { position: relative; margin-bottom: clamp(20px, 6vw, 25px); text-align: left; z-index: 2; }
+        .custom-input-group input {
+            width: 100%; background-color: var(--metal-bg);
+            background-image: linear-gradient(135deg, #111 25%, transparent 25%), linear-gradient(225deg, #111 25%, transparent 25%), linear-gradient(45deg, #111 25%, transparent 25%), linear-gradient(315deg, #111 25%, transparent 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0; background-size: 10px 10px; background-repeat: repeat;
+            border: 3px solid var(--metal-border); border-top-color: var(--wood-line); border-left-color: var(--wood-line); border-bottom-color: var(--metal-highlight); border-right-color: var(--metal-highlight);
+            border-radius: 10px; padding: clamp(14px, 4vw, 18px) 16px 14px clamp(40px, 12vw, 50px); color: var(--text-white); 
+            font-size: clamp(13px, 4vw, 15px); font-family: 'Montserrat', sans-serif; font-weight: 600; outline: none; transition: all 0.3s ease; box-sizing: border-box; box-shadow: inset 0 5px 10px rgba(0,0,0,0.7);
+        }
+        .custom-input-group label { position: absolute; left: clamp(40px, 12vw, 50px); top: 50%; transform: translateY(-50%); color: #888; font-size: clamp(12px, 3.5vw, 14px); font-weight: 600; pointer-events: none; transition: all 0.3s ease; background: transparent; }
+        .custom-input-group input:focus { border-color: rgba(255, 102, 0, 0.7); box-shadow: inset 0 2px 5px rgba(0,0,0,0.8), 0 0 10px rgba(255,102,0,0.5); background-color: #121212; }
+        .custom-input-group input:focus ~ label, .custom-input-group input:valid ~ label {
+            top: -2px; left: 12px; font-size: 10px; color: #000; background: var(--light-orange); padding: 2px 6px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 0 5px var(--light-orange);
+        }
+
+        /* --- SUPER ENHANCED BUTTON --- */
+        .btn-claim {
+            position: relative; overflow: hidden; border: none; padding: 0; width: 100%;
+            border-radius: 12px; cursor: pointer; z-index: 2; margin-top: 10px; background: #111; 
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3), inset 0 2px 5px rgba(255,255,255,0.2);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .btn-claim::before {
+            content: ''; position: absolute; width: 250%; height: 250%; top: -75%; left: -75%;
+            background: conic-gradient(from 0deg, transparent 0%, #ff0055 20%, #aa00ff 40%, var(--neon-blue) 60%, #00ffaa 80%, var(--primary-orange) 100%);
+            animation: spinBorderAnim 0.8s linear infinite; z-index: 1;
+        }
+        .btn-claim::after {
+            content: ''; position: absolute; inset: 3px; background: linear-gradient(135deg, var(--primary-orange), #e65c00);
+            border-radius: 9px; z-index: 2; box-shadow: inset 0 2px 10px rgba(255,255,255,0.3), inset 0 -4px 10px rgba(0,0,0,0.3); transition: background 0.3s ease;
+        }
+        .btn-claim-content {
+            position: relative; z-index: 3; display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 100%; padding: clamp(14px, 4vw, 16px) 30px; box-sizing: border-box;
+            color: #ffffff; font-size: clamp(15px, 5vw, 18px); font-family: 'Montserrat', sans-serif; 
+            font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 2px 3px rgba(0,0,0,0.6); transition: transform 0.1s ease;
+        }
+        .btn-claim-content::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shimmerSweep 3s infinite; pointer-events: none; z-index: 10;
+        }
+
+        @keyframes spinBorderAnim { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn-claim:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255, 102, 0, 0.6), inset 0 2px 5px rgba(255,255,255,0.4); }
+        .btn-claim:hover::after { background: linear-gradient(135deg, #ff8833, #ff4400); }
+        .btn-claim:active { transform: translateY(2px) scale(0.97); box-shadow: 0 2px 5px rgba(255, 102, 0, 0.3), inset 0 4px 15px rgba(0,0,0,0.5); }
+        .btn-claim:active .btn-claim-content { transform: translateY(2px); }
+        .btn-claim:disabled::before { animation: none; background: transparent; }
+        .btn-claim:disabled::after { background: #333; box-shadow: none; }
+        .btn-claim:disabled { cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-claim:disabled .btn-claim-content { text-shadow: none; color: #888; transform: none; }
+        .btn-claim:disabled .btn-claim-content::after { animation: none; display: none; }
+
+        .spinner { display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- OVERLAPPING TIMER AT BOTTOM --- */
+        .timer-label-bottom { font-size: clamp(11px, 3.5vw, 13px); font-weight: 800; color: rgba(255,255,255,0.8); margin-bottom: 10px; margin-top: clamp(20px, 6vw, 30px); letter-spacing: 1.5px; text-transform: uppercase; position: relative; z-index: 10; animation: textBreathing 2.5s infinite ease-in-out; }
+        .timer-container { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(6px, 2vw, 10px); margin-bottom: clamp(-45px, -12vw, -65px); position: relative; z-index: 10; }
+        .time-box { background: rgba(0, 0, 0, 0.9); border: 2px solid var(--primary-orange); border-radius: 8px; padding: clamp(6px, 2vw, 10px); min-width: clamp(40px, 12vw, 55px); box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.6); }
+        .time-value { font-size: clamp(14px, 5vw, 18px); font-weight: 900; color: var(--primary-orange); line-height: 1; }
+        .time-label { font-size: clamp(8px, 2.5vw, 10px); text-transform: uppercase; color: var(--text-grey); margin-top: 5px; letter-spacing: 1px; font-weight: 600; }
+
+        @keyframes textBreathing { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } }
+        @keyframes shakeAlert { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); } 20%, 40%, 60%, 80% { transform: translateX(10px); } }
+        .swal-shake { animation: shakeAlert 0.4s ease-in-out; }
+
+        /* --- Footer Section --- */
+        .app-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 60px 20px 40px 20px; width: 100%; box-sizing: border-box; background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); position: relative; z-index: 2; }
+        .footer-logo { font-size: clamp(18px, 5vw, 22px); font-weight: 700; margin-bottom: 20px; }
+        .footer-logo .khel { color: #ffffff; } .footer-logo .yogdaan { color: var(--primary-orange); }
+        .footer-socials { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
+        .footer-socials i { font-size: clamp(20px, 6vw, 24px); color: #888888; cursor: pointer; transition: all 0.3s ease; }
+        .footer-socials i:hover { color: var(--primary-orange); transform: scale(1.1); }
+        .footer-copyright { color: #555555; font-size: clamp(11px, 3.5vw, 13px); font-weight: 400; }
+
+        /* --- Common Modal CSS --- */
+        .custom-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--metal-bg); border: 3px solid var(--neon-blue); padding: clamp(20px, 6vw, 30px) clamp(15px, 4vw, 20px); border-radius: 15px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(0, 170, 255, 0.4); animation: popIn 0.3s ease-out; width: 90%; max-width: 350px; box-sizing: border-box; }
+        .modal-content h3 { color: #fff; margin: 0 0 15px 0; font-family: 'Khand', sans-serif; font-size: clamp(20px, 6vw, 24px); }
+        .close-modal { position: absolute; top: -15px; right: -15px; background: #ff3333; color: white; border: 2px solid #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 10px #ff3333; font-size: 16px; transition: all 0.2s ease; }
+        .close-modal:hover { transform: scale(1.1); background: #ff0000; }
+        .close-modal:active { transform: scale(0.9); }
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* QR Image Specific */
+        .qr-image { width: 100%; max-width: 200px; height: auto; border-radius: 10px; border: 2px solid var(--neon-blue); padding: 5px; background: #fff; box-sizing: border-box; }
+        .qr-desc { font-size: clamp(10px, 3.5vw, 12px); color: #aaa; margin-top: 15px; font-weight: 600; }
+
+        /* --- ENHANCED CHECK STATUS UI (LIST DESIGN) --- */
+        .btn-check-status {
+            background: linear-gradient(135deg, var(--primary-orange), #e65c00);
+            border: none; color: white; padding: 12px; width: 100%; margin-top: 5px;
+            font-weight: 800; font-family: 'Montserrat'; border-radius: 8px; cursor: pointer; text-transform: uppercase;
+        }
+
+        #requestsListContent { max-height: 250px; overflow-y: auto; text-align: left; padding-right: 5px; margin-top: 10px; }
+        #requestsListContent::-webkit-scrollbar { width: 4px; }
+        #requestsListContent::-webkit-scrollbar-track { background: #111; border-radius: 4px; }
+        #requestsListContent::-webkit-scrollbar-thumb { background: var(--primary-orange); border-radius: 4px; }
+
+        .req-card {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid #333; border-radius: 8px;
+            padding: 12px; margin-bottom: 10px; transition: all 0.3s ease;
+        }
+        .req-card:hover { background: rgba(0, 0, 0, 0.8); border-color: #555; }
+        .req-details { display: flex; flex-direction: column; gap: 4px; }
+        .req-amount { color: var(--primary-orange); font-size: 16px; font-weight: 900; }
+        .req-utr { color: var(--text-grey); font-size: 11px; font-family: monospace; letter-spacing: 0.5px; }
+        
+        .req-status {
+            padding: 6px 10px; border-radius: 20px; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; display: flex; align-items: center; gap: 5px; letter-spacing: 0.5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Right Status Button (Mail Icon) -->
+    <button id="topStatusBtn" class="status-btn">
+        <i class="fa-solid fa-envelope"></i> Check Status
+    </button>
+
+    <!-- Smooth Split Splash Screen -->
+    <div id="splashScreen">
+        <div class="splash-panel left"></div>
+        <div class="splash-panel right"></div>
+        <div class="splash-content">
+            <img src="logo.png" alt="Khel Yogdaan Logo" id="splashLogo">
+            <div id="splashText">
+                <span class="splash-khel">KHEL</span> 
+                <span class="splash-yogdaan">YOGDAAN</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement / Rules Modal -->
+    <div id="announcementModal" class="custom-modal">
+        <div class="announcement-content">
+            <h3 class="announcement-title" id="dynamicRuleTitle">Loading...</h3>
+            <div class="announcement-body" id="dynamicRuleBody">
+                <div class="spinner" style="display:block; border-top-color:var(--primary-orange);"></div>
+            </div>
+            <!-- Disabled till fetch completes -->
+            <button id="getStartedBtn" class="btn-get-started" disabled>Loading Rules...</button>
+        </div>
+    </div>
+
+    <!-- Status Check Modal (Updated Unified Design) -->
+    <div id="statusModal" class="custom-modal">
+        <div class="modal-content">
+            <button id="closeStatusBtn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Track Requests</h3>
+            
+            <!-- Manual Check Input Div -->
+            <div id="manualCheckDiv">
+                <div class="custom-input-group" style="margin-bottom: 10px;">
+                    <i class="fa-solid fa-hashtag img-icon-input" style="color:var(--neon-blue);"></i>
+                    <input type="text" id="trackUtrId" placeholder="Enter UTR to manually search">
+                </div>
+                <button id="verifyStatusBtn" class="btn-check-status">Verify Status</button>
+            </div>
+
+            <hr style="border-color: #333; margin: 20px 0 15px 0;">
+            <h4 style="color:#fff; text-align:left; margin:0 0 10px 0; font-size:13px; text-transform:uppercase; color:var(--text-grey);">Your Recent Requests</h4>
+            
+            <!-- Dynamic List Container -->
+            <div id="requestsListContent">
+                <!-- Cards will be injected here via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-animations"></div>
+
+    <div class="device-warning">
+        <img src="icon-mobile.png" alt="Mobile Warning" class="img-icon-large">
+        <h2>Mobile Portrait Only</h2>
+        <p>This event page does not support desktop or landscape modes. Please hold your phone vertically or go back.</p>
+        <button onclick="history.back()" class="btn-back">Go Back</button>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="hero-section">
+            <div class="event-card">
+                
+                <div class="shine-overlay"></div>
+
+                <img src="logo.png" alt="Event Logo" class="gift-img">
+                <h2 class="event-title">Bonus Event</h2>
+                
+                <div class="offer-highlight">
+                    <div class="offer-main-row">
+                        <span class="offer-pay">PAY MIN ₹5</span>
+                        <img src="icon-bolt.png" alt="Offer" class="img-icon-small">
+                        <span class="offer-get">GET 4 EXTRA COINS</span>
+                    </div>
+                    <div class="offer-subtext">ON EVERY PURCHASE</div>
+                </div>
+
+                <form id="bonusEventForm" novalidate>
+                    
+                    <button type="button" id="showQrBtn" class="btn-qr">
+                        <img src="icon-qrcode.png" alt="QR" class="img-icon-btn"> Show QR Code to Pay
+                    </button>
+
+                    <div class="coin-calculator">
+                        <img src="icon-coin.png" alt="Coins" class="img-icon-calc">
+                        <span>Get:</span>
+                        <span id="baseCoins" class="calc-val">0</span>
+                        <span>+</span>
+                        <span class="calc-bonus">4 Bonus</span>
+                        <span>=</span>
+                        <span id="totalCoins" class="calc-val">4</span>
+                        <span>Coins</span>
+                    </div>
+
+                    <div class="custom-input-group">
+                        <img src="icon-rupee.png" alt="Rupee" class="img-icon-input">
+                        <input type="number" id="amountId" required>
+                        <label for="amountId">Amount Paid</label>
+                    </div>
+                    
+                    <div class="custom-input-group">
+                        <img src="icon-invoice.png" alt="Invoice" class="img-icon-input">
+                        <input type="text" id="txnUtrId" required>
+                        <label for="txnUtrId">Transaction / UTR ID</label>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-claim">
+                        <span class="btn-claim-content">
+                            <span class="btn-text" id="mainBtnText">Get Coin</span>
+                            <div class="spinner" id="loadingSpinner"></div>
+                        </span>
+                    </button>
+                    
+                </form>
+
+                <div class="timer-label-bottom">Event Available For:</div>
+                <div class="timer-container">
+                    <div class="time-box"><div class="time-value" id="days">00</div><div class="time-label">Days</div></div>
+                    <div class="time-box"><div class="time-value" id="hours">00</div><div class="time-label">Hours</div></div>
+                    <div class="time-box"><div class="time-value" id="mins">00</div><div class="time-label">Mins</div></div>
+                    <div class="time-box"><div class="time-value" id="secs">00</div><div class="time-label">Secs</div></div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="footer-logo"><span class="khel">KHEL</span> <span class="yogdaan">YOGDAAN</span></div>
+            <div class="footer-socials">
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <div class="footer-copyright">© 2026 Khel Yogdaan Esports. All rights reserved.</div>
+        </footer>
+
+    </div>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="custom-modal">
+        <div class="modal-content">
+            <button id="closeQrBtn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3>SCAN & PAY</h3>
+            <img src="image_0.png" alt="Scan to Pay" class="qr-image">
+            <div class="qr-desc">Please pay the exact amount you enter in the form to get your bonus coins.</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- FIREBASE MODULE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHZsdTfR3swk5GjyBXVbPEJiypwVOxfnE",
+            authDomain: "khelyogdaan-events.firebaseapp.com",
+            projectId: "khelyogdaan-events",
+            storageBucket: "khelyogdaan-events.firebasestorage.app",
+            messagingSenderId: "992220843884",
+            appId: "1:992220843884:web:1f92fab2698432b6b9ed49"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Variables for global settings
+        let eventEndDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+
+        const getStartedBtn = document.getElementById('getStartedBtn');
+
+        // --- FETCH DYNAMIC CONFIG (Rules & Timer) FROM FIREBASE ---
+        async function fetchConfig() {
+            try {
+                getStartedBtn.disabled = true;
+                getStartedBtn.innerText = "Loading Rules...";
+
+                const docRef = doc(db, "settings", "config");
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('dynamicRuleTitle').innerHTML = data.rulesTitle || "Event Rules";
+                    document.getElementById('dynamicRuleBody').innerHTML = data.rulesBody || "<p>Welcome to the event!</p>";
+                    if(data.endTime) eventEndDate = parseInt(data.endTime);
+                } else {
+                    document.getElementById('dynamicRuleTitle').innerHTML = "Event Rules";
+                    document.getElementById('dynamicRuleBody').innerHTML = "<p>Welcome to the event! Rules will be updated soon.</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching config:", error);
+                document.getElementById('dynamicRuleTitle').innerHTML = "Event Rules";
+                document.getElementById('dynamicRuleBody').innerHTML = "<p>Could not load rules. Please check your connection.</p>";
+            } finally {
+                getStartedBtn.disabled = false;
+                getStartedBtn.innerText = "Get Started";
+            }
+        }
+        
+        // --- SPLASH AND MODAL LOGIC ---
+        const splashScreen = document.getElementById('splashScreen');
+        const announcementModal = document.getElementById('announcementModal');
+
+        setTimeout(() => {
+            splashScreen.style.display = 'none';
+            announcementModal.style.display = 'flex';
+            fetchConfig(); 
+        }, 3600); 
+
+        getStartedBtn.addEventListener('click', () => {
+            announcementModal.style.display = 'none';
+            document.body.style.overflowY = 'auto'; 
+        });
+
+        function triggerErrorVibration() {
+            if ("vibrate" in navigator) navigator.vibrate([200, 100, 200]);
+        }
+
+        // --- COIN CALCULATION ---
+        const amountInputEl = document.getElementById('amountId');
+        const baseCoinsEl = document.getElementById('baseCoins');
+        const totalCoinsEl = document.getElementById('totalCoins');
+
+        amountInputEl.addEventListener('input', function() {
+            let amount = parseInt(this.value);
+            if(isNaN(amount) || amount < 0) amount = 0;
+            let baseCoins = amount * 4;
+            let totalCoins = baseCoins + 4; 
+            baseCoinsEl.innerText = baseCoins;
+            totalCoinsEl.innerText = totalCoins;
+        });
+
+        // --- QR MODAL ---
+        const qrModal = document.getElementById('qrModal');
+        document.getElementById('showQrBtn').addEventListener('click', () => qrModal.style.display = 'flex');
+        document.getElementById('closeQrBtn').addEventListener('click', () => qrModal.style.display = 'none');
+        
+        // --- STATUS TRACK MODAL & LOGIC (LIST DESIGN) ---
+        const statusModal = document.getElementById('statusModal');
+        
+        document.getElementById('topStatusBtn').addEventListener('click', () => {
+            statusModal.style.display = 'flex';
+            document.getElementById('trackUtrId').value = '';
+            loadSavedRequests(); // Fetch array list
+        });
+        
+        document.getElementById('closeStatusBtn').addEventListener('click', () => statusModal.style.display = 'none');
+        window.addEventListener('click', (e) => { 
+            if(e.target === qrModal) qrModal.style.display = 'none'; 
+            if(e.target === statusModal) statusModal.style.display = 'none';
+        });
+
+        // 1. Load Requests from Local Storage Array into List
+        async function loadSavedRequests() {
+            const listContainer = document.getElementById('requestsListContent');
+            let savedArray = JSON.parse(localStorage.getItem('khelyogdaan_utrs') || '[]');
+            
+            if(savedArray.length === 0) {
+                listContainer.innerHTML = '<div style="color:#888; font-size:12px; text-align:center; padding: 20px 0;">No recent requests found on this device. Use manual check above.</div>';
+                return;
+            }
+
+            listContainer.innerHTML = '<div class="spinner" style="display:block; border-top-color:var(--neon-blue); margin: 20px auto;"></div>';
+
+            try {
+                // Fetch up to 10 recent transactions
+                const q = query(collection(db, "bonus_requests"), where("utr_id", "in", savedArray.slice(0, 10)));
+                const querySnapshot = await getDocs(q);
+                
+                if(querySnapshot.empty) {
+                    listContainer.innerHTML = '<div style="color:#888; font-size:12px; text-align:center;">No matching records found.</div>';
+                    return;
+                }
+
+                let htmlContent = '';
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    let statusColor, statusIcon, statusText;
+                    
+                    if(data.status === 'pending') { 
+                        statusColor = '#ffaa00'; statusIcon = 'fa-clock'; statusText = 'Pending'; 
+                    } else if(data.status === 'approved') { 
+                        statusColor = '#00ff88'; statusIcon = 'fa-check-circle'; statusText = 'Approved'; 
+                    } else { 
+                        statusColor = '#ff3333'; statusIcon = 'fa-circle-xmark'; statusText = 'Rejected'; 
+                    }
+
+                    // Card Design Generation
+                    htmlContent += `
+                        <div class="req-card" style="border-left: 4px solid ${statusColor};">
+                            <div class="req-details">
+                                <div class="req-amount">₹${data.amount}</div>
+                                <div class="req-utr">ID: ${data.utr_id}</div>
+                            </div>
+                            <div class="req-status" style="color: ${statusColor}; background: ${statusColor}22; border: 1px solid ${statusColor};">
+                                <i class="fa-solid ${statusIcon}"></i> ${statusText}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                listContainer.innerHTML = htmlContent;
+                
+            } catch(e) {
+                console.error(e);
+                listContainer.innerHTML = '<div style="color:#ff3333; font-size:12px; text-align:center;">Error loading requests from server.</div>';
+            }
+        }
+
+        // 2. Manual Verify Click Event
+        document.getElementById('verifyStatusBtn').addEventListener('click', async () => {
+            const trackUtr = document.getElementById('trackUtrId').value.trim();
+            const btn = document.getElementById('verifyStatusBtn');
+
+            if(!trackUtr) {
+                Swal.fire({ icon: 'warning', title: 'Empty Field', text: 'Please enter UTR ID to search.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' }});
+                return;
+            }
+
+            btn.innerText = "Checking..."; btn.disabled = true;
+
+            try {
+                const q = query(collection(db, "bonus_requests"), where("utr_id", "==", trackUtr));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    Swal.fire({ icon: 'error', title: 'Not Found', text: 'No request found with this UTR ID.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' }});
+                } else {
+                    // Update Local Storage Array
+                    let savedArray = JSON.parse(localStorage.getItem('khelyogdaan_utrs') || '[]');
+                    if(!savedArray.includes(trackUtr)) {
+                        savedArray.unshift(trackUtr);
+                        if(savedArray.length > 10) savedArray.pop(); // Keep max 10
+                        localStorage.setItem('khelyogdaan_utrs', JSON.stringify(savedArray));
+                    }
+                    
+                    Swal.fire({ icon: 'success', title: 'Found!', text: 'Transaction added to your recent requests list.', background: '#111', color: '#fff', showConfirmButton: false, timer: 1500 });
+                    
+                    document.getElementById('trackUtrId').value = '';
+                    loadSavedRequests(); // Refresh the list
+                }
+            } catch(e) {
+                console.log(e);
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Server connection error.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600' });
+            }
+
+            btn.innerText = "Verify Status"; btn.disabled = false;
+        });
+
+        // --- DYNAMIC TIMER ---
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventEndDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                document.querySelector(".timer-container").innerHTML = "<div class='time-value' style='color:#ff3333; font-size: clamp(14px, 5vw, 18px);'>Event Expired!</div>";
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('mainBtnText').innerHTML = "Event Closed";
+            } else {
+                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("mins").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("secs").innerText = seconds < 10 ? "0" + seconds : seconds;
+            }
+        }, 1000);
+
+        // --- FORM SUBMIT ---
+        document.getElementById('bonusEventForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            if(document.getElementById('submitBtn').disabled) return;
+
+            const amountInput = document.getElementById('amountId').value.trim();
+            const txnUtrId = document.getElementById('txnUtrId').value.trim();
+            
+            if(!amountInput || !txnUtrId) {
+                triggerErrorVibration();
+                Swal.fire({ icon: 'error', title: 'Missing Details', text: 'All fields are mandatory!', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' }});
+                return;
+            }
+
+            const amount = parseInt(amountInput);
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('mainBtnText');
+            const spinner = document.getElementById('loadingSpinner');
+
+            if(amount < 5) {
+                triggerErrorVibration();
+                Swal.fire({ icon: 'error', title: 'Minimum ₹5 Required', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' }});
+                return;
+            }
+
+            if(txnUtrId.length < 12) {
+                triggerErrorVibration();
+                Swal.fire({ icon: 'warning', title: 'Invalid ID', text: 'Please enter a valid 12-digit UTR.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' }});
+                return;
+            }
+
+            submitBtn.disabled = true; btnText.style.display = 'none'; spinner.style.display = 'block';
+
+            try {
+                const requestsRef = collection(db, "bonus_requests");
+                const q = query(requestsRef, where("utr_id", "==", txnUtrId));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    submitBtn.disabled = false; btnText.style.display = 'inline-block'; spinner.style.display = 'none';
+                    triggerErrorVibration();
+                    Swal.fire({ icon: 'error', title: 'Transaction Failed', text: 'This Transaction / UTR ID has already been used!', background: '#111', color: '#fff', confirmButtonColor: '#ff6600', customClass: { popup: 'swal-shake' } });
+                    return;
+                }
+
+                await addDoc(requestsRef, { amount: amount, utr_id: txnUtrId, status: 'pending', timestamp: serverTimestamp() });
+
+                // AUTOMATION: Save UTR to Array in Local Storage
+                let savedArray = JSON.parse(localStorage.getItem('khelyogdaan_utrs') || '[]');
+                if(!savedArray.includes(txnUtrId)) {
+                    savedArray.unshift(txnUtrId);
+                    if(savedArray.length > 10) savedArray.pop();
+                    localStorage.setItem('khelyogdaan_utrs', JSON.stringify(savedArray));
+                }
+
+                submitBtn.disabled = false; btnText.style.display = 'inline-block'; spinner.style.display = 'none';
+                Swal.fire({ icon: 'success', title: 'Request Submitted!', text: 'Click "Check Status" at the top right to track it.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600' });
+                
+                document.getElementById('bonusEventForm').reset();
+                document.getElementById('baseCoins').innerText = "0"; document.getElementById('totalCoins').innerText = "4";
+
+            } catch (error) {
+                console.error(error);
+                submitBtn.disabled = false; btnText.style.display = 'inline-block'; spinner.style.display = 'none';
+                Swal.fire({ icon: 'error', title: 'Database Error', text: 'Something went wrong.', background: '#111', color: '#fff', confirmButtonColor: '#ff6600' });
+            }
+        });
+    </script>
+</body>
+</html>
