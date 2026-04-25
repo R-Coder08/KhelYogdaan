@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Team - Khel Yogdaan</title>
+    <style>
+        body {
+            background-color: #121212; color: #FFFFFF; font-family: Arial, sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0;
+        }
+        .container {
+            background-color: #1E1E1E; padding: 30px; border-radius: 15px; text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); width: 90%; max-width: 400px; border: 1px solid #FF5722;
+        }
+        h2 { color: #FF5722; margin-bottom: 10px; }
+        .btn {
+            display: inline-block; padding: 15px 30px; margin-top: 25px; background-color: #FF5722;
+            color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: bold; border-radius: 8px;
+            text-transform: uppercase;
+        }
+        .btn:hover { background-color: #E64A19; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎮 KHEL YOGDAAN</h2>
+        <p style="font-size: 18px; font-weight: bold;">You've been invited to join a private team!</p>
+        <p style="color: #B0B0B0; font-size: 14px; margin-top: 15px;">If you have the app installed, this link should have opened it directly.</p>
+        
+        <p style="color: #FFEB3B; font-size: 14px; margin-top: 10px; font-weight: bold;">Don't have the app?</p>
+        
+        <!-- 🔥 Aapka Diya Hua Fallback URL 🔥 -->
+        <a href="https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom" class="btn">DOWNLOAD APP NOW</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var matchId = urlParams.get('matchId');
+            var slot = urlParams.get('slot');
+            
+            if(matchId) {
+                var appIntent = "intent://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot + "#Intent;scheme=https;package=com.khelyogdaan.khelyogdaan;end";
+                window.location.href = appIntent;
+            }
+        };
+    </script>
+</body>
+</html>
