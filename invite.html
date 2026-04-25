@@ -20,18 +20,25 @@
             text-transform: uppercase;
         }
         .btn:hover { background-color: #E64A19; }
+        
+        .loader {
+            border: 4px solid #333; border-top: 4px solid #FF5722; border-radius: 50%;
+            width: 30px; height: 30px; animation: spin 1s linear infinite;
+            margin: 20px auto 0;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>🎮 KHEL YOGDAAN</h2>
-        <p style="font-size: 18px; font-weight: bold;">You've been invited to join a private team!</p>
+        <p style="font-size: 18px; font-weight: bold;" id="statusText">Opening Application...</p>
         <p style="color: #B0B0B0; font-size: 14px; margin-top: 15px;">If you have the app installed, this link should have opened it directly.</p>
         
-        <p style="color: #FFEB3B; font-size: 14px; margin-top: 10px; font-weight: bold;">Don't have the app?</p>
-        
-        <!-- 🔥 Aapka Diya Hua Fallback URL 🔥 -->
-        <a href="https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom" class="btn">DOWNLOAD APP NOW</a>
+        <div class="loader" id="loader"></div>
+
+        <!-- This button will be shown as a fallback -->
+        <a href="https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom" class="btn" id="downloadBtn" style="display: none;">DOWNLOAD APP NOW</a>
     </div>
 
     <script>
@@ -40,9 +47,37 @@
             var matchId = urlParams.get('matchId');
             var slot = urlParams.get('slot');
             
+            // Aapka Purgatory App Download Link
+            var fallbackUrl = "https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom";
+
             if(matchId) {
-                var appIntent = "intent://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot + "#Intent;scheme=https;package=com.khelyogdaan.khelyogdaan;end";
-                window.location.href = appIntent;
+                // 1. Directly attempt to trigger the Deep Link URI Scheme
+                var appSchemeUrl = "https://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot;
+                
+                // Set timeout to redirect to fallback if app is not installed
+                var redirectTimeout = setTimeout(function() {
+                    // Update UI to show Download button
+                    document.getElementById('statusText').innerText = "App Not Found!";
+                    document.getElementById('statusText').style.color = "#F44336";
+                    document.getElementById('loader').style.display = "none";
+                    document.getElementById('downloadBtn').style.display = "inline-block";
+                    
+                    // Automatically redirect to download page
+                    window.location.href = fallbackUrl;
+                }, 2000); // Wait 2 seconds
+
+                // Try to open the app
+                window.location.href = appSchemeUrl;
+
+                // Handle visibility change (If app opens successfully, clear the timeout so it doesn't redirect to download)
+                window.onblur = function() {
+                    clearTimeout(redirectTimeout);
+                };
+            } else {
+                // No matchId found, just show download button immediately
+                document.getElementById('statusText').innerText = "Download App";
+                document.getElementById('loader').style.display = "none";
+                document.getElementById('downloadBtn').style.display = "inline-block";
             }
         };
     </script>
