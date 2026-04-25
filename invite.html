@@ -33,11 +33,10 @@
     <div class="container">
         <h2>🎮 KHEL YOGDAAN</h2>
         <p style="font-size: 18px; font-weight: bold;" id="statusText">Opening Application...</p>
-        <p style="color: #B0B0B0; font-size: 14px; margin-top: 15px;">If you have the app installed, this link should have opened it directly.</p>
+        <p style="color: #B0B0B0; font-size: 14px; margin-top: 15px;">Please wait while we redirect you to the match.</p>
         
         <div class="loader" id="loader"></div>
 
-        <!-- This button will be shown as a fallback -->
         <a href="https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom" class="btn" id="downloadBtn" style="display: none;">DOWNLOAD APP NOW</a>
     </div>
 
@@ -47,35 +46,29 @@
             var matchId = urlParams.get('matchId');
             var slot = urlParams.get('slot');
             
-            // Aapka Purgatory App Download Link
-            var fallbackUrl = "https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom";
-
-            if(matchId) {
-                // 1. Directly attempt to trigger the Deep Link URI Scheme
-                var appSchemeUrl = "https://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot;
+            // Aapki custom download website
+            var fallbackUrl = "https://purgatory.42web.io/pstore.html?app=KhelYogdaan - Free Fire Tournament Platfrom";
+            
+            if(matchId && slot) {
+                // 🔥 CRITICAL FIX: URL encoding the fallback URL so Chrome understands it
+                var encodedFallback = encodeURIComponent(fallbackUrl);
                 
-                // Set timeout to redirect to fallback if app is not installed
-                var redirectTimeout = setTimeout(function() {
-                    // Update UI to show Download button
-                    document.getElementById('statusText').innerText = "App Not Found!";
-                    document.getElementById('statusText').style.color = "#F44336";
+                // 🔥 S.browser_fallback_url forces Chrome to IGNORE Play Store and open this custom link
+                var appIntent = "intent://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot + "#Intent;scheme=https;package=com.khelyogdaan.khelyogdaan;S.browser_fallback_url=" + encodedFallback + ";end";
+                
+                window.location.href = appIntent;
+                
+                // Agar user 3 second tak yahi reh gaya (meaning intent trigger nahi hua normally browsers pe)
+                setTimeout(function() {
+                    document.getElementById('statusText').innerText = "App not installed!";
+                    document.getElementById('statusText').style.color = "#FFEB3B";
                     document.getElementById('loader').style.display = "none";
                     document.getElementById('downloadBtn').style.display = "inline-block";
-                    
-                    // Automatically redirect to download page
-                    window.location.href = fallbackUrl;
-                }, 2000); // Wait 2 seconds
+                }, 3000);
 
-                // Try to open the app
-                window.location.href = appSchemeUrl;
-
-                // Handle visibility change (If app opens successfully, clear the timeout so it doesn't redirect to download)
-                window.onblur = function() {
-                    clearTimeout(redirectTimeout);
-                };
             } else {
-                // No matchId found, just show download button immediately
-                document.getElementById('statusText').innerText = "Download App";
+                document.getElementById('statusText').innerText = "Invalid Invite Link!";
+                document.getElementById('statusText').style.color = "#F44336";
                 document.getElementById('loader').style.display = "none";
                 document.getElementById('downloadBtn').style.display = "inline-block";
             }
