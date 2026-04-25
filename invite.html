@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Team - Khel Yogdaan</title>
+    <style>
+        body {
+            background-color: #121212; color: #FFFFFF; font-family: Arial, sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0;
+        }
+        .container {
+            background-color: #1E1E1E; padding: 30px; border-radius: 15px; text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); width: 90%; max-width: 400px; border: 1px solid #FF5722;
+        }
+        h2 { color: #FF5722; margin-bottom: 10px; }
+        .btn {
+            display: inline-block; padding: 15px 30px; margin-top: 25px; background-color: #FF5722;
+            color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: bold; border-radius: 8px;
+            text-transform: uppercase;
+        }
+        .btn:hover { background-color: #E64A19; }
+        
+        .loader {
+            border: 4px solid #333; border-top: 4px solid #FF5722; border-radius: 50%;
+            width: 30px; height: 30px; animation: spin 1s linear infinite;
+            margin: 20px auto 0;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎮 KHEL YOGDAAN</h2>
+        <p style="font-size: 18px; font-weight: bold;" id="statusText">Opening Application...</p>
+        <p style="color: #B0B0B0; font-size: 14px; margin-top: 15px;">Please wait while we redirect you to the match.</p>
+        
+        <div class="loader" id="loader"></div>
+
+        <a href="https://purgatory.42web.io/pstore.html?app=KhelYogdaan%20-%20Free%20Fire%20Tournament%20Platfrom" class="btn" id="downloadBtn" style="display: none;">DOWNLOAD APP NOW</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var matchId = urlParams.get('matchId');
+            var slot = urlParams.get('slot');
+            
+            // Aapki custom download website
+            var fallbackUrl = "https://purgatory.42web.io/pstore.html?app=KhelYogdaan - Free Fire Tournament Platfrom";
+            
+            if(matchId && slot) {
+                // 🔥 CRITICAL FIX: URL encoding the fallback URL so Chrome understands it
+                var encodedFallback = encodeURIComponent(fallbackUrl);
+                
+                // 🔥 S.browser_fallback_url forces Chrome to IGNORE Play Store and open this custom link
+                var appIntent = "intent://r-coder08.github.io/KhelYogdaan/invite.html?matchId=" + matchId + "&slot=" + slot + "#Intent;scheme=https;package=com.khelyogdaan.khelyogdaan;S.browser_fallback_url=" + encodedFallback + ";end";
+                
+                window.location.href = appIntent;
+                
+                // Agar user 3 second tak yahi reh gaya (meaning intent trigger nahi hua normally browsers pe)
+                setTimeout(function() {
+                    document.getElementById('statusText').innerText = "App not installed!";
+                    document.getElementById('statusText').style.color = "#FFEB3B";
+                    document.getElementById('loader').style.display = "none";
+                    document.getElementById('downloadBtn').style.display = "inline-block";
+                }, 3000);
+
+            } else {
+                document.getElementById('statusText').innerText = "Invalid Invite Link!";
+                document.getElementById('statusText').style.color = "#F44336";
+                document.getElementById('loader').style.display = "none";
+                document.getElementById('downloadBtn').style.display = "inline-block";
+            }
+        };
+    </script>
+</body>
+</html>
