@@ -3,14 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khel Yogdaan</title>
-    <meta name="description" content="Download Khel Yogdaan - The Ultimate Esports Tournament App.">
-    <meta name="theme-color" content="#FFE52A">
+    
+    <!-- Core SEO Meta Tags -->
+    <title>Khel Yogdaan — Ultimate Esports Platform</title>
+    <meta name="description" content="Download Khel Yogdaan - Play Free Fire daily custom tournaments, eliminate enemies, and withdraw your winnings instantly via UPI, Fampay, or Google Play Redeem Codes. Join India's #1 skill-based esports community.">
+    <meta name="keywords" content="Khel Yogdaan, KhelYogdaan, Free Fire Tournament App, FF Esports Platform, Play and Earn Money, Daily Custom Match Rooms, Instant UPI Withdrawal, Fampay Esports App, Google Play Redeem Codes, Earn Money Gaming, Esports India, Free Fire Tournaments">
+    <meta name="author" content="Khel Yogdaan Esports">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://r-coder08.github.io/KhelYogdaan/">
+
+    <!-- Theme Color for Browsers -->
+    <meta name="theme-color" content="#FF5722">
+
+    <!-- Open Graph Meta Tags (WhatsApp, Telegram, Facebook, Discord Optimization) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Khel Yogdaan — Play Daily Tournaments & Win Real Rewards">
+    <meta property="og:description" content="Join daily tournaments, secure instant UPI/Fampay withdrawals, and get free custom matches. Download the Khel Yogdaan App now!">
+    <meta property="og:url" content="https://r-coder08.github.io/KhelYogdaan/">
+    <meta property="og:site_name" content="Khel Yogdaan Esports">
+    
+    <!-- IMPORTANT: WhatsApp & Telegram Og:Image Previews -->
+    <!-- सोशल मीडिया प्रीव्यू के लिए नीचे दिए गए यूआरएल को अपनी वेबसाइट के डोमेन नाम (जैसे https://yourdomain.com/logo.png) से बदलें -->
+    <meta property="og:image" content="https://r-coder08.github.io/KhelYogdaan/logo.png">
+    <meta property="og:image:secure_url" content="https://r-coder08.github.io/KhelYogdaan/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Khel Yogdaan Logo">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Khel Yogdaan — Ultimate Esports Platform">
+    <meta name="twitter:description" content="Play daily Free Fire tournaments and withdraw winnings instantly. Download the Android APK.">
+    <meta name="twitter:image" content="https://r-coder08.github.io/KhelYogdaan/logo.png">
+
+    <!-- Google Search Rich Snippet / Schema Markup (Increases CTR on Google Search) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Khel Yogdaan",
+      "operatingSystem": "Android",
+      "applicationCategory": "GameApplication",
+      "genre": "Esports",
+      "downloadUrl": "https://purgatory.42web.io/tools/PStore/",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "0",
+        "bestRating": "5",
+        "worstRating": "0"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "INR"
+      },
+      "description": "India's best skill-based tournament platform. Play daily Free Fire matches and secure instant withdrawals via UPI, Fampay, and Google Play Redeem Codes."
+    }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
     <!-- Icons & Animation Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,426 +79,650 @@
             theme: {
                 extend: {
                     colors: {
-                        khel: { dark: '#121212', surface: '#1E1E1E', accent: '#FF5722', accentHover: '#E64A19' }
+                        khel: {
+                            dark: '#121212',
+                            surface: '#1E1E1E',
+                            accent: '#FF5722',
+                            accentHover: '#E64A19',
+                            textMuted: '#A0A0A0'
+                        }
                     },
-                    fontFamily: { sans: ['Poppins', 'sans-serif'], display: ['Rajdhani', 'sans-serif'] },
-                    boxShadow: { 'neon': '0 0 15px rgba(255, 87, 34, 0.5)' }
+                    fontFamily: { 
+                        sans: ['Poppins', 'sans-serif'], 
+                        display: ['Rajdhani', 'sans-serif'] 
+                    },
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(255, 87, 34, 0.45)',
+                        'neon-glow': '0 0 25px rgba(255, 87, 34, 0.25)',
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #121212; color: #ffffff; overflow-x: hidden; }
-        .glass { background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .text-gradient { background: linear-gradient(to right, #FF5722, #FF8A65); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Animations */
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        
-        /* Background Blob */
-        .blob { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,87,34,0.15) 0%, rgba(18,18,18,0) 70%); border-radius: 50%; z-index: -1; pointer-events: none; }
-        
-        /* Mobile Menu Slide */
-        #mobile-menu { transition: transform 0.3s ease-in-out; }
-        .menu-open { transform: translateX(0) !important; }
-        .menu-closed { transform: translateX(100%); }
-
-        /* FAQ Transition */
-        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .faq-active .faq-content { max-height: 200px; }
-        .faq-active i { transform: rotate(180deg); }
-
-        /* FLIP TEXT ANIMATION CSS */
-        .flip-container { perspective: 1000px; }
-        .flipping-text {
-            display: inline-block;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
-            transform-origin: center bottom;
-            backface-visibility: hidden;
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1E1E1E;
+            --color-accent: #FF5722;
+            --color-accent-hover: #E64A19;
+            --text-main: #ffffff;
+            --text-muted: #A0A0A0;
         }
-        .flip-out { transform: rotateX(-90deg) translateY(10px); opacity: 0; }
-        .flip-in { transform: rotateX(0deg) translateY(0); opacity: 1; }
 
-        /* PHONE CAROUSEL TRANSITIONS */
-        .fade-transition { transition: opacity 0.5s ease-in-out; }
+        /* Shifting Gradient Background */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body { 
+            background: linear-gradient(-45deg, #121212, #1c1512, #121212, #261712);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-main); 
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel { 
+            background: rgba(30, 30, 30, 0.55); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06); 
+        }
+        
+        .glass-nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Accent Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #FF5722 0%, #FF8A65 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-overlay {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Orange Light Spots */
+        .blob-orange {
+            background: radial-gradient(circle, rgba(255,87,34,0.12) 0%, rgba(18,18,18,0) 70%);
+        }
+
+        /* Accordion Transitions */
+        .faq-accordion {
+            transition: all 0.3s ease-in-out;
+        }
+        .faq-accordion[open] {
+            border-color: rgba(255, 87, 34, 0.3);
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.1);
+        }
+        .faq-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .fade-transition { transition: opacity 0.4s ease-in-out; }
     </style>
 </head>
-<body class="antialiased relative">
+<body class="antialiased relative select-none">
 
-    <!-- Background Effects -->
-    <div class="blob top-0 left-0"></div>
-    <div class="blob bottom-0 right-0"></div>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 grid-overlay z-0 pointer-events-none"></div>
+    <div class="fixed top-0 left-0 w-[500px] h-[500px] blob-orange rounded-full z-0 pointer-events-none animate-pulse"></div>
+    <div class="fixed bottom-0 right-0 w-[500px] h-[500px] blob-orange rounded-full z-0 pointer-events-none animate-pulse"></div>
 
-    <!-- 1. Navbar & Mobile Menu -->
-    <nav class="fixed w-full z-40 glass transition-all duration-300" id="navbar">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-10 h-10 bg-khel-accent rounded-lg flex items-center justify-center shadow-neon">
-                    <i class="fa-solid fa-gamepad text-white text-xl"></i>
-                </div>
-                <span class="font-display font-bold text-2xl tracking-wide">KHEL <span class="text-khel-accent">YOGDAAN</span></span>
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <img id="navbar-logo" src="logo.png" alt="Khel Yogdaan Logo" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1E1E1E/FF5722?text=KY'" class="w-10 h-10 object-contain rounded-xl filter drop-shadow-[0_0_8px_rgba(255,87,34,0.4)] transition-transform group-hover:scale-105">
+                <span class="font-display font-bold text-2xl tracking-wider text-white">
+                    KHEL <span class="text-khel-accent">YOGDAAN</span>
+                </span>
             </a>
 
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#features" class="hover:text-khel-accent transition-colors">Features</a>
-                <a href="#faq" class="hover:text-khel-accent transition-colors">FAQ</a>
-                <a href="#contact" class="hover:text-khel-accent transition-colors">Support</a>
-                <button onclick="startDownloadProcess()" class="bg-khel-surface border border-khel-accent text-khel-accent px-6 py-2 rounded-full font-semibold hover:bg-khel-accent hover:text-white transition-all shadow-neon">
+            <!-- Menu Links -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#features" class="text-khel-textMuted hover:text-khel-accent transition-colors">Features</a>
+                <a href="#stats" class="text-khel-textMuted hover:text-khel-accent transition-colors">Stats</a>
+                <a href="#reviews" class="text-khel-textMuted hover:text-khel-accent transition-colors">Reviews</a>
+                <a href="#faq" class="text-khel-textMuted hover:text-khel-accent transition-colors">FAQ</a>
+                <button onclick="triggerAppDownload()" class="px-6 py-2.5 rounded-lg font-semibold bg-khel-accent hover:bg-khel-accentHover text-white transition-all shadow-neon hover:scale-105">
                     Download App
                 </button>
             </div>
 
-            <button class="md:hidden text-2xl text-white" onclick="toggleMobileMenu()">
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-white hover:text-khel-accent transition-colors" onclick="toggleMobileMenu()">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl menu-closed flex flex-col justify-center items-center gap-8 md:hidden">
-        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white">
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-[#121212]/95 backdrop-blur-2xl translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 md:hidden">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl text-khel-textMuted hover:text-white">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <a href="#features" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-khel-accent">Features</a>
-        <a href="#faq" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-khel-accent">FAQ</a>
-        <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-khel-accent">Support</a>
-        <button onclick="toggleMobileMenu(); startDownloadProcess()" class="bg-khel-accent text-white px-8 py-3 rounded-full font-bold text-xl shadow-neon">
+        <a href="#features" onclick="toggleMobileMenu()" class="text-2xl font-bold text-khel-textMuted hover:text-khel-accent">Features</a>
+        <a href="#stats" onclick="toggleMobileMenu()" class="text-2xl font-bold text-khel-textMuted hover:text-khel-accent">Stats</a>
+        <a href="#reviews" onclick="toggleMobileMenu()" class="text-2xl font-bold text-khel-textMuted hover:text-khel-accent">Reviews</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="text-2xl font-bold text-khel-textMuted hover:text-khel-accent">FAQ</a>
+        <button onclick="toggleMobileMenu(); triggerAppDownload()" class="bg-khel-accent text-white px-8 py-3.5 rounded-xl font-bold text-lg shadow-neon">
             Download App
         </button>
     </div>
 
-    <!-- 2. Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
-                
-                <!-- ANIMATED TEXT PILL -->
-                <div class="inline-block bg-khel-accent/10 border border-khel-accent/20 px-4 py-2 rounded-full text-khel-accent text-sm font-semibold mb-6 flip-container">
-                    <i class="fa-solid fa-fire mr-2 animate-pulse"></i>
-                    <span id="rotating-text" class="flipping-text flip-in tracking-wider">INDIA'S #1 FF ESPORTS PLATFORM</span>
-                </div>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 lg:pt-44 lg:pb-24 px-6 z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-panel rounded-3xl p-8 lg:p-14 relative overflow-hidden border border-white/5 shadow-2xl">
+                <!-- Top Accent Line -->
+                <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-khel-accent to-transparent opacity-60"></div>
 
-                <h1 class="font-display font-bold text-5xl lg:text-7xl leading-tight mb-6">
-                    BEST <span class="text-gradient">SKILL BASED</span> <br>TOURNAMENT PLATFORM
-                </h1>
-                <p class="text-gray-400 text-lg mb-8 max-w-lg">Play daily tournaments, eliminate enemies, and withdraw winnings instantly via UPI and Google Reedem Code's.</p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="startDownloadProcess()" class="bg-khel-accent hover:bg-khel-accentHover text-white px-8 py-4 rounded-lg font-bold text-lg shadow-neon flex items-center justify-center gap-3 transition-transform hover:scale-105">
-                        <i class="fa-brands fa-android text-xl"></i> Download APP
-                    </button>
-                    <a href="#features" class="glass text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/10 flex items-center justify-center">How it Works</a>
+                <div class="grid lg:grid-cols-12 gap-12 items-center relative z-10">
+                    
+                    <!-- Left Hero Text Details -->
+                    <div class="lg:col-span-7" data-aos="fade-right">
+                        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-7xl leading-none mb-6 tracking-tight">
+                            BEST <span class="text-gradient">SKILL BASED</span> <br>
+                            TOURNAMENT APP
+                        </h1>
+                        
+                        <p class="text-khel-textMuted text-base sm:text-lg mb-8 max-w-lg leading-relaxed">
+                            Play daily match rooms, eliminate enemies, and withdraw your winnings instantly via UPI, Fampay, or Google Redeem Codes.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="triggerAppDownload()" class="bg-khel-accent hover:bg-khel-accentHover text-white px-8 py-4 rounded-xl font-bold text-base shadow-neon flex items-center justify-center gap-3 transition-transform hover:-translate-y-1">
+                                <i class="fa-brands fa-android text-xl"></i> Download App
+                            </button>
+                            <a href="#features" class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-white/10 hover:border-khel-accent/30 transition-all flex items-center justify-center gap-2">
+                                Learn More <i class="fa-solid fa-arrow-down text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Hero Mockup Section -->
+                    <div class="lg:col-span-5 relative flex justify-center items-center h-[520px] lg:h-[650px]" data-aos="fade-left">
+                        <!-- Glow effect -->
+                        <div class="absolute w-[300px] h-[300px] rounded-full bg-khel-accent/10 blur-[60px] z-0"></div>
+
+                        <!-- Improved and Larger Phone Mockup -->
+                        <div class="absolute w-[280px] sm:w-[320px] h-[560px] sm:h-[640px] border-[12px] border-[#242424] rounded-[3.2rem] bg-[#121212] shadow-2xl overflow-hidden flex flex-col z-10 scale-95 origin-center">
+                            <!-- Image Screenshot Carousel -->
+                            <img id="carousel-img" src="imgs/1.png" onerror="this.onerror=null; this.src='https://placehold.co/400x800/1E1E1E/FF5722?text=Khel+Yogdaan+Screenshot';" class="absolute inset-0 w-full h-full object-cover fade-transition z-10" alt="App Preview">
+                            <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 to-transparent z-20"></div>
+                            
+                            <!-- Carousel Dots -->
+                            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-30" id="carousel-dots">
+                                <!-- Generated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-            
-            <!-- CLEAN PHONE MOCKUP -->
-            <div class="relative z-10 flex justify-center lg:justify-end" data-aos="fade-left">
-                <!-- Phone Frame -->
-                <div class="relative w-[320px] lg:w-[350px] h-[660px] lg:h-[720px] border-[12px] lg:border-[14px] border-[#2a2a2a] rounded-[3rem] bg-[#121212] shadow-2xl animate-float overflow-hidden flex flex-col">
-                    
-                    <!-- App Screenshot Image -->
-                    <img id="carousel-img" src="imgs/1.png" class="absolute inset-0 w-full h-full object-cover object-center fade-transition z-10" alt="App Screenshot">
-                    
-                    <!-- Gradient for dots background -->
-                    <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+        </div>
+    </section>
 
-                    <!-- Small Pagination Dots -->
-                    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-30" id="carousel-dots">
-                        <!-- Dots will be generated by JS -->
+    <!-- Bento Stats Section -->
+    <section id="stats" class="py-12 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <!-- Dynamic Total Downloads Card -->
+                <div class="md:col-span-6 glass-panel rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden border border-white/5 hover:border-khel-accent/20 transition-all shadow-xl" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-khel-accent/5 rounded-bl-full"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="p-3 bg-khel-accent/10 rounded-xl text-khel-accent"><i class="fa-solid fa-cloud-arrow-down text-xl"></i></span>
+                        <span class="text-xs bg-khel-accent/10 text-khel-accent px-2.5 py-1 rounded-full font-semibold flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span> Live Updates
+                        </span>
+                    </div>
+                    <div>
+                        <h3 id="stat-downloads" class="font-display text-4xl sm:text-5xl font-bold text-white mb-1">0</h3>
+                        <p class="text-khel-textMuted text-sm font-medium uppercase tracking-wider">Total Downloads</p>
                     </div>
                 </div>
+
+                <!-- Free Matches Card -->
+                <div class="md:col-span-3 glass-panel rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden border border-white/5 hover:border-khel-accent/20 transition-all shadow-xl" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="p-3 bg-khel-accent/10 rounded-xl text-khel-accent"><i class="fa-solid fa-gift text-xl"></i></span>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-3xl font-bold text-white mb-1">2-3 Free Matches Available</h3>
+                        <p class="text-khel-textMuted text-xs font-medium uppercase tracking-wider">Matches Per Week</p>
+                    </div>
+                </div>
+
+                <!-- Daily Matches Card -->
+                <div class="md:col-span-3 glass-panel rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden border border-white/5 hover:border-khel-accent/20 transition-all shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="p-3 bg-khel-accent/10 rounded-xl text-khel-accent"><i class="fa-solid fa-gamepad text-xl"></i></span>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-3xl font-bold text-white mb-1">6+ Daily Matches Created</h3>
+                        <p class="text-khel-textMuted text-xs font-medium uppercase tracking-wider">Daily Matches</p>
+                    </div>
+                </div>
+
+                <!-- Dynamic Rating Details (Live app.rating + reviews length) -->
+                <div class="md:col-span-12 glass-panel rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-center gap-6 border border-white/5 hover:border-khel-accent/20 transition-all" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex items-center gap-4">
+                        <span class="p-3 bg-khel-accent/10 rounded-xl text-khel-accent"><i class="fa-solid fa-star text-2xl"></i></span>
+                        <div>
+                            <h4 class="font-bold text-lg text-white">Top User Ratings</h4>
+                            <p class="text-khel-textMuted text-sm">Real reviews.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="stat-rating" class="text-3xl font-display font-bold text-white">4.8</span>
+                        <div class="text-khel-accent flex gap-1">
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm animate-pulse"></i>
+                        </div>
+                        <span id="stat-review-count" class="text-xs text-khel-textMuted ml-1">(0 Reviews)</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 3. Live Stats -->
-    <section class="border-y border-white/5 bg-khel-surface/30 backdrop-blur-sm" id="stats-section">
-        <div class="max-w-7xl mx-auto px-6 py-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
-                <div>
-                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="100">0</span>+</h3>
-                    <p class="text-gray-400 text-sm mt-1">Active Users</p>
-                </div>
-                <div>
-                    <h3 class="font-display text-4xl font-bold text-white">₹<span class="counter" data-target="760">0</span>+</h3>
-                    <p class="text-gray-400 text-sm mt-1">Paid Winnings</p>
-                </div>
-                <div>
-                    <h3 class="font-display text-4xl font-bold text-white"><span class="counter" data-target="20">0</span>+</h3>
-                    <p class="text-gray-400 text-sm mt-1">Daily Matches Available</p>
-                </div>
-                <div>
-                    <h3 class="font-display text-4xl font-bold text-white">4.6</h3>
-                    <p class="text-gray-400 text-sm mt-1">App Rating</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Features -->
-    <section id="features" class="py-20 px-6">
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-display font-bold text-4xl">WHY <span class="text-khel-accent">KHEL YOGDAAN?</span></h2>
+                <span class="text-xs font-bold text-khel-accent tracking-widest uppercase">Our Best Features</span>
+                <h2 class="font-display font-bold text-4xl mt-2">WHY <span class="text-gradient">KHEL YOGDAAN?</span></h2>
+                <div class="w-20 h-1 bg-khel-accent mx-auto mt-4 rounded-full"></div>
             </div>
+
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="0">
-                    <i class="fa-solid fa-bolt text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Instant withdrawal</h3>
-                    <p class="text-gray-400">Withdraw winnings to PhonePe, GPay, Fampay, Google Reedem Code within 20 mins.</p>
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 group border border-white/5 hover:border-khel-accent/40 shadow-xl" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 rounded-2xl bg-khel-accent/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-[0_0_15px_rgba(255,87,34,0.1)]">
+                        <i class="fa-solid fa-bolt-lightning text-2xl text-khel-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Instant Cashout</h3>
+                    <p class="text-khel-textMuted text-sm leading-relaxed">
+                        Withdraw your winnings to Google Play Redeem Codes, Fampay, Paytm, or GPay within 24-30 hours securely.
+                    </p>
                 </div>
-                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fa-solid fa-shield-virus text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Cheat Prohibited</h3>
-                    <p class="text-gray-400">No hackers & Cheaters instantly Banned From match room. Fair play guaranteed in every matches.</p>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 group border border-white/5 hover:border-khel-accent/40 shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 rounded-2xl bg-khel-accent/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-[0_0_15px_rgba(255,87,34,0.1)]">
+                        <i class="fa-solid fa-shield-halved text-2xl text-khel-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Cheat Prevention</h3>
+                    <p class="text-khel-textMuted text-sm leading-relaxed">
+                        No hackers or cheaters are allowed. We ban exploiters immediately to make sure every single match is fair and square.
+                    </p>
                 </div>
-                <div class="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fa-solid fa-gift text-4xl text-khel-accent mb-4 group-hover:scale-110 transition-transform block"></i>
-                    <h3 class="text-xl font-bold mb-2">Surprise Gifts</h3>
-                    <p class="text-gray-400">Join our official WhatsApp group for exclusive giveaways! Chance to win free coins. Giveways organised to after 1-2 weeks.</p>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 group border border-white/5 hover:border-khel-accent/40 shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 rounded-2xl bg-khel-accent/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-[0_0_15px_rgba(255,87,34,0.1)]">
+                        <i class="fa-solid fa-trophy text-2xl text-khel-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Surprise Giveaways</h3>
+                    <p class="text-khel-textMuted text-sm leading-relaxed">
+                        Join our WhatsApp group to win free coin drops and play exclusive free giveaways held every 1-2 weeks.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. FAQ Section -->
-    <section id="faq" class="py-20 px-6 bg-khel-surface/20">
-        <div class="max-w-3xl mx-auto">
+    <!-- Player Reviews Section (Dynamically Fetched and Rendered) -->
+    <section id="reviews" class="py-16 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-xs font-bold text-khel-accent tracking-widest uppercase">Showing all reviews</span>
+                <h2 class="font-display font-bold text-4xl mt-2">PLAYERS <span class="text-gradient">REVIEWS</span></h2>
+                <div class="w-16 h-1 bg-khel-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <!-- Dyn Reviews Grid -->
+            <div id="dynamic-reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Fallback Loading Panel -->
+                <div class="col-span-full text-center text-khel-textMuted text-sm">Loading authentic user reviews...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="font-display font-bold text-3xl">FREQUENTLY ASKED <span class="text-khel-accent">QUESTIONS</span></h2>
+                <span class="text-xs font-bold text-khel-accent tracking-widest uppercase">FAQ</span>
+                <h2 class="font-display font-bold text-4xl mt-2 text-white">FREQUENTLY ASKED <span class="text-khel-accent">QUESTIONS</span></h2>
+                <div class="w-16 h-1 bg-khel-accent mx-auto mt-4 rounded-full"></div>
             </div>
+
             <div class="space-y-4">
-                <div class="glass rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                    <div class="p-5 flex justify-between items-center">
-                        <h4 class="font-bold">Is my money safe?</h4>
-                        <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                <details class="faq-accordion glass-panel rounded-xl border border-white/5 group overflow-hidden">
+                    <summary class="p-6 flex justify-between items-center cursor-pointer list-none select-none">
+                        <h4 class="font-bold text-white group-hover:text-khel-accent transition-colors">Is my money completely safe?</h4>
+                        <span class="text-khel-textMuted transition-transform duration-300 group-open:rotate-180 group-open:text-khel-accent">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-khel-textMuted text-sm leading-relaxed border-t border-white/5 pt-4">
+                        Yes, absolutely. We use highly secure, manual payment verifications to prevent system bugs and instantly add credits to your wallet.
                     </div>
-                    <div class="faq-content bg-black/20">
-                        <div class="p-5 pt-0 text-gray-400 text-sm">
-                            Yes, absolutely! We use secured manual payment no bug & glitches instantly coins added to your account. Your winnings are held in a separate escrow account.
-                        </div>
+                </details>
+
+                <details class="faq-accordion glass-panel rounded-xl border border-white/5 group overflow-hidden">
+                    <summary class="p-6 flex justify-between items-center cursor-pointer list-none select-none">
+                        <h4 class="font-bold text-white group-hover:text-khel-accent transition-colors">How can I play in the tournaments?</h4>
+                        <span class="text-khel-textMuted transition-transform duration-300 group-open:rotate-180 group-open:text-khel-accent">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-khel-textMuted text-sm leading-relaxed border-t border-white/5 pt-4">
+                        1. Download the KhelYogdaan APK from this website, or tap on the <span onclick="triggerAppDownload()" style="color : #FF5722; font-weight: bold; text-decoration: underline;">Download APP</span><br>
+                        2. Add deposit cash into your wallet.<br>
+                        3. Find a match from the matches screen.<br>
+                        4. Copy the Room ID and Password or tap Auto Join to enter (details are revealed 15 mins before match start).
                     </div>
-                </div>
-                <div class="glass rounded-xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                    <div class="p-5 flex justify-between items-center">
-                        <h4 class="font-bold">How to Play Tournaments?</h4>
-                        <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                </details>
+
+                <details class="faq-accordion glass-panel rounded-xl border border-white/5 group overflow-hidden">
+                    <summary class="p-6 flex justify-between items-center cursor-pointer list-none select-none">
+                        <h4 class="font-bold text-white group-hover:text-khel-accent transition-colors">What happens when there is an app update?</h4>
+                        <span class="text-khel-textMuted transition-transform duration-300 group-open:rotate-180 group-open:text-khel-accent">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-khel-textMuted text-sm leading-relaxed border-t border-white/5 pt-4">
+                        Whenever a new version is available, you can update the app directly from within the app or download the latest version from this website by tapping the <span onclick="triggerAppDownload()" style="color : #FF5722; font-weight: bold; text-decoration: underline;">Download APP</span> button.
                     </div>
-                    <div class="faq-content bg-black/20">
-                        <div class="p-5 pt-0 text-gray-400 text-sm">
-                            1. Download The KhelYogdaan App from offcial website.<br>2. Goto Wallet Add Money to your account.<br> 3. Select a Matches from matches screen.<br> 4. Copy Room ID/Password otherwise tap the Auto Join Room option then just fill password (shared 15 mins before match).
-                        </div>
-                    </div>
-                </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <!-- 6. Footer -->
-    <footer class="bg-black py-10 border-t border-white/10 text-center" id="contact">
+    <!-- Footer -->
+    <footer class="bg-[#0b0b0b] py-14 border-t border-white/5 text-center relative z-10" id="contact">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="font-display font-bold text-2xl mb-4">KHEL <span class="text-khel-accent">YOGDAAN</span></h2>
+            <h2 class="font-display font-bold text-2xl tracking-wider mb-2">KHEL <span class="text-khel-accent">YOGDAAN</span></h2>
+            <p class="text-khel-textMuted text-xs max-w-md mx-auto mb-6">Play competitive match rooms daily and convert your skills to solid rewards.</p>
+            
             <div class="flex justify-center gap-6 mb-8">
-                <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="https://whatsapp.com/channel/0029Vb7rJifG8l59TI5Sf346" class="text-gray-400 hover:text-white"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-khel-accent/10 hover:text-khel-accent text-khel-textMuted flex items-center justify-center transition-all duration-300">
+                    <i class="fa-brands fa-instagram text-lg"></i>
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vb7rJifG8l59TI5Sf346" class="w-10 h-10 rounded-full bg-white/5 hover:bg-green-500/10 hover:text-green-500 text-khel-textMuted flex items-center justify-center transition-all duration-300">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </a>
             </div>
-            <p class="text-gray-600 text-sm">&copy; <span id="year"></span> Khel Yogdaan Esports. All rights reserved.</p>
+            
+            <p class="text-gray-600 text-xs">&copy; <span id="year"></span> Khel Yogdaan Esports. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ================= MODALS ================= -->
-    <div id="downloadModal" class="fixed inset-0 z-[60] bg-black/90 hidden flex items-center justify-center backdrop-blur-sm">
-        <div class="bg-[#1E1E1E] border border-khel-accent p-8 rounded-3xl w-full max-w-sm mx-6 text-center shadow-neon relative">
-            <button onclick="closeDownloadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <!-- Direct Download Portal -->
+    <div id="downloadModal" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-md hidden flex items-center justify-center transition-opacity duration-300">
+        <div class="glass-panel border-khel-accent/40 p-8 rounded-3xl w-full max-w-md mx-6 text-center shadow-neon relative" data-aos="zoom-in" data-aos-duration="200">
+            <!-- Close Trigger -->
+            <button onclick="closeDownloadPortal()" class="absolute top-4 right-4 text-khel-textMuted hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
             
-            <div id="dl-start-view">
-                <i class="fa-brands fa-android text-5xl text-khel-accent mb-4 animate-bounce"></i>
-                
-                <h3 id="dl-title" class="text-xl font-bold font-display mb-2 text-white">Checking Updated version...</h3>
-                <p id="dl-subtitle" class="text-gray-400 text-sm mb-6">Connecting to server...</p>
-                
-                <div id="progress-container" class="w-full bg-gray-700 rounded-full h-3 mb-4 overflow-hidden hidden">
-                    <div id="progressBar" class="bg-khel-accent h-3 rounded-full transition-all duration-200" style="width: 0%"></div>
-                </div>
-                <p id="progressText" class="text-khel-accent font-bold text-sm hidden">0%</p>
+            <!-- Dynamic Download App Logo Placeholder -->
+            <div class="w-20 h-20 rounded-2xl bg-[#1e1e1e] flex items-center justify-center mx-auto mb-4 border border-khel-accent/20 p-2 overflow-hidden">
+                <img id="modal-app-logo" src="logo.png" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1E1E1E/FF5722?text=KY'" class="w-full h-full object-cover rounded-xl">
             </div>
+            
+            <h3 id="modal-app-title" class="text-2xl font-bold font-display text-white mb-1">Khel Yogdaan</h3>
+            <p id="app-modal-version" class="text-khel-accent text-xs font-semibold tracking-wider mb-4">Loading version details...</p>
+            <p class="text-khel-textMuted text-sm mb-6"><div style="text-align:left; line-height:1.8;">
+    
+    <b>Installation Steps</b><br><br>
+    
+    1. Tap the <b>"Download App"</b> button below.<br>
+    2. Wait for the APK file to finish downloading.<br>
+    3. Open the downloaded APK file.<br>
+    4. Tap <b>"Install"</b> to start the installation.<br>
+    5. If Google Play Protect shows a warning, tap <b>"More details"</b>.<br>
+    6. Select <b>"Install anyway"</b> to continue.<br>
+    7. Wait for the installation to complete.<br>
+    8. Tap <b>"Open"</b> and start using the app.
+    
+</div></p><br>
+            
+            <!-- Direct Actions -->
+            <div class="space-y-3">
+                <a id="btn-modal-download" href="#" target="_blank" class="flex items-center justify-between bg-khel-accent hover:bg-khel-accentHover text-white px-5 py-3.5 rounded-xl font-bold text-sm transition-all shadow-neon group">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> Download APK
+                    </span>
+                    <span class="text-xs opacity-75 group-hover:translate-x-1 transition-transform">Get App <i class="fa-solid fa-chevron-right ml-1"></i></span>
+                </a>
 
-            <div id="dl-finish-view" class="hidden">
-                <i class="fa-solid fa-circle-check text-5xl text-green-500 mb-4"></i>
-                <h3 class="text-2xl font-bold font-display mb-2">Download Started!</h3>
-                <p class="text-gray-400 text-sm mb-6">If download didn't start, <a href="app/KhelYogdaan-v0.76.0-beta.apk" class="text-khel-accent underline" download>click here</a>.</p>
-                <button onclick="closeDownloadModal()" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-2 rounded-full text-sm font-bold">Close</button>
+                <div class="flex items-center justify-between bg-white/5 border border-white/5 text-khel-textMuted px-5 py-3.5 rounded-xl text-sm opacity-60 relative cursor-not-allowed">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-play"></i> Google Play Store
+                    </span>
+                    <span class="text-[10px] bg-white/10 text-khel-accent font-semibold px-2 py-0.5 rounded-full uppercase tracking-widest">Soon</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Controls -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ offset: 50, duration: 800, once: true });
+        // Init Scroll Animation
+        AOS.init({ offset: 30, duration: 700, once: true });
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- 1. FLIP TEXT ANIMATION LOGIC ---
-        const phrases = [
-            "INDIA'S #1 FF ESPORTS PLATFORM",
-            "DAILY LIVE TOURNAMENTS",
-            "FASTEST WITHDRAWALS",
-            "SECURE & SAFE PLATFORM"
+        // Standard App States (Configured with safe fallbacks)
+        let cachedDownloadUrl = "#"; 
+        let cachedAppLogo = "logo.png"; 
+        let cachedAppVersion = ""; 
+        let cachedAppSize = "";
+        let cachedAppName = "";
+        let cachedAppRating = "";
+        let cachedAppDownloads = "";
+
+        // Fallback default screenshots array
+        let screens = [
+            ""
         ];
-        let phraseIndex = 0;
-        const textElement = document.getElementById('rotating-text');
-
-        setInterval(() => {
-            textElement.classList.remove('flip-in');
-            textElement.classList.add('flip-out');
-
-            setTimeout(() => {
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                textElement.innerText = phrases[phraseIndex];
-                
-                textElement.classList.remove('flip-out');
-                textElement.classList.add('flip-in');
-            }, 600);
-        }, 3000); 
-
-
-        // --- 2. CLEAN PHONE SCREEN CAROUSEL LOGIC ---
-        // Yahan sirf images ke path aayenge kyunki text card remove ho chuka hai
-        const appScreens = [
-            "imgs/1.png",
-            "imgs/2.png", 
-            "imgs/3.png", 
-            "imgs/4.png", 
-            "imgs/5.png", 
-            "imgs/6.png", 
-            "imgs/7.png"
-        ];
-
-        let currentScreenIndex = 0;
+        let idx = 0;
         const carouselImg = document.getElementById('carousel-img');
         const dotsContainer = document.getElementById('carousel-dots');
 
-        appScreens.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-khel-accent w-5' : 'bg-gray-500'}`;
-            dotsContainer.appendChild(dot);
-        });
-        const dots = dotsContainer.children;
+        // Dynamic Supabase Endpoint parameters directly matching provided widget logic
+        const appEndpoint = "https://zosvfggysvvpjupypdft.supabase.co/rest/v1/apps?id=eq.22&select=*";
+        const revEndpoint = "https://zosvfggysvvpjupypdft.supabase.co/rest/v1/reviews?app_id=eq.22&select=*&order=created_at.desc";
+        const headers = { "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpvc3ZmZ2d5c3Z2cGp1cHlwZGZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MDY5MDMsImV4cCI6MjA5MTM4MjkwM30.S6lisbuVi3-Jn4Qv4c0qZk5-kNGfY3Sd-QtriLDAoh4" };
 
+        async function fetchAppAndReviewsData() {
+            try {
+                const [appRes, revRes] = await Promise.all([
+                    fetch(appEndpoint, { headers }),
+                    fetch(revEndpoint, { headers })
+                ]);
+                
+                if (appRes.ok && revRes.ok) {
+                    const appData = await appRes.json();
+                    const reviewsData = await revRes.json();
+
+                    if (appData && appData.length > 0) {
+                        const app = appData[0];
+                        
+                        console.log("App Server Data Loaded Successfully:", app);
+                        console.log("Reviews Loaded Successfully:", reviewsData);
+
+                        // Parse and cache table properties
+                        cachedDownloadUrl = app.apk_url || cachedDownloadUrl;
+                        cachedAppLogo = app.icon_url || cachedAppLogo;
+                        cachedAppVersion = app.version || cachedAppVersion;
+                        cachedAppSize = app.size || cachedAppSize;
+                        cachedAppName = app.name || cachedAppName;
+                        cachedAppRating = app.rating || cachedAppRating;
+                        cachedAppDownloads = app.downloads || cachedAppDownloads;
+
+                        // Fetch dynamic screenshots array
+                        if (app.screenshots && Array.isArray(app.screenshots) && app.screenshots.length > 0) {
+                            screens = app.screenshots;
+                        }
+
+                        // Apply standard configuration layouts
+                        applyAppConfiguration(reviewsData);
+                        rebuildCarouselDots();
+                        renderReviewsList(reviewsData);
+                    }
+                }
+            } catch (err) {
+                console.warn("API load failed. Using client default configurations.", err);
+                applyAppConfiguration([]);
+                rebuildCarouselDots();
+            }
+        }
+
+        function applyAppConfiguration(reviewsData) {
+            // Apply Logos
+            if (cachedAppLogo) {
+                document.getElementById('navbar-logo').src = cachedAppLogo;
+                document.getElementById('modal-app-logo').src = cachedAppLogo;
+            }
+
+            // Apply Names & Version details
+            document.getElementById('modal-app-title').innerText = cachedAppName;
+            document.getElementById('app-modal-version').innerText = `Version ${cachedAppVersion} • ${cachedAppSize}`;
+
+            // Set Download URL
+            document.getElementById('btn-modal-download').setAttribute('href', cachedDownloadUrl);
+
+            // Apply Dynamic Stats Ratings & Total Counts
+            document.getElementById('stat-rating').innerText = cachedAppRating;
+            document.getElementById('stat-review-count').innerText = `(${reviewsData.length || 0} Reviews)`;
+
+            // Apply Dynamic Downloads directly as fetched from database
+            document.getElementById('stat-downloads').innerText = cachedAppDownloads;
+        }
+
+        // Render reviews directly into layout block
+        function renderReviewsList(reviewsData) {
+            const container = document.getElementById('dynamic-reviews-grid');
+            if (reviewsData && reviewsData.length > 0) {
+                // Slice up to first 3 most recent reviews to fit layout nicely
+                container.innerHTML = reviewsData.slice(0, 3).map((r, i) => {
+                    const stars = '★'.repeat(r.rating) + '::'.repeat(5 - r.rating);
+                    const initial = r.user_name ? r.user_name.charAt(0).toUpperCase() : 'U';
+                    const fallbackAvatar = `https://placehold.co/100x100/1E1E1E/FF5722?text=${initial}`;
+                    
+                    return `
+                        <div class="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-khel-accent/30 transition-all duration-300 shadow-lg" data-aos="fade-up" data-aos-delay="${i * 100}">
+                            <div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <img src="${r.user_avatar || fallbackAvatar}" onerror="this.src='${fallbackAvatar}'" class="w-10 h-10 rounded-full object-cover border border-white/10" alt="Avatar">
+                                    <div>
+                                        <h4 class="text-white font-bold text-sm leading-tight">${r.user_name || 'Anonymous User'}</h4>
+                                        <span class="text-khel-accent text-xs tracking-wider">${stars}</span>
+                                    </div>
+                                </div>
+                                <p class="text-khel-textMuted text-sm leading-relaxed">${r.review_text || 'Excellent application experience!'}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                container.innerHTML = `
+                    <div class="col-span-full text-center text-khel-textMuted text-sm py-4">
+                        
+                    </div>
+                `;
+            }
+        }
+
+        // Trigger safe auto-download or modal prompt depending on retrieval states
+        function triggerAppDownload() {
+            if (cachedDownloadUrl && cachedDownloadUrl !== "#") {
+                window.open(cachedDownloadUrl, '_blank');
+            }
+            openDownloadPortal();
+        }
+
+        // Rebuild carousel dot elements dynamically based on updated screens list
+        function rebuildCarouselDots() {
+            dotsContainer.innerHTML = '';
+            screens.forEach((_, itemIdx) => {
+                const dot = document.createElement('div');
+                dot.className = `w-1.5 h-1.5 rounded-full transition-all duration-300 ${itemIdx === 0 ? 'bg-khel-accent w-4' : 'bg-gray-600'}`;
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Set first image directly
+            if (screens.length > 0) {
+                carouselImg.src = screens[0];
+            }
+        }
+
+        // Initialize API call immediately on load
+        window.addEventListener('DOMContentLoaded', fetchAppAndReviewsData);
+
+        // Performant transition loop
         setInterval(() => {
+            if (screens.length === 0) return;
             carouselImg.classList.add('opacity-0');
 
             setTimeout(() => {
-                currentScreenIndex = (currentScreenIndex + 1) % appScreens.length;
-                carouselImg.src = appScreens[currentScreenIndex];
+                idx = (idx + 1) % screens.length;
+                carouselImg.src = screens[idx];
 
-                Array.from(dots).forEach((dot, i) => {
-                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === currentScreenIndex ? 'bg-khel-accent w-5' : 'bg-gray-500'}`;
-                });
-
+                const dotsList = dotsContainer.children;
+                if (dotsList.length === screens.length) {
+                    Array.from(dotsList).forEach((dot, dIdx) => {
+                        dot.className = `w-1.5 h-1.5 rounded-full transition-all duration-300 ${dIdx === idx ? 'bg-khel-accent w-4' : 'bg-gray-600'}`;
+                    });
+                }
                 carouselImg.classList.remove('opacity-0');
-            }, 500); 
-        }, 3500); 
+            }, 400); 
+        }, 4000);
 
-        // Mobile Menu
+        // Mobile Sidebar Controls
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('menu-closed');
-            menu.classList.toggle('menu-open');
+            menu.classList.toggle('translate-x-full');
         }
 
-        // FAQ
-        function toggleFaq(element) {
-            const allFaqs = document.querySelectorAll('.glass');
-            allFaqs.forEach(faq => { if(faq !== element) faq.classList.remove('faq-active'); });
-            element.classList.toggle('faq-active');
-        }
-
-        // --- 3. DOWNLOAD LOGIC ---
-        function startDownloadProcess() {
+        // Direct Download Portal Visibility
+        function openDownloadPortal() {
             const modal = document.getElementById('downloadModal');
-            const startView = document.getElementById('dl-start-view');
-            const finishView = document.getElementById('dl-finish-view');
-            
-            const title = document.getElementById('dl-title');
-            const subtitle = document.getElementById('dl-subtitle');
-            const barContainer = document.getElementById('progress-container');
-            const bar = document.getElementById('progressBar');
-            const text = document.getElementById('progressText');
-
             modal.classList.remove('hidden');
-            startView.classList.remove('hidden');
-            finishView.classList.add('hidden');
-            
-            bar.style.width = '0%';
-            barContainer.classList.add('hidden'); 
-            text.classList.add('hidden');
-            
-            title.textContent = 'Checking Updated version...';
-            subtitle.textContent = 'Connecting to server...';
-
-            setTimeout(() => {
-                title.innerHTML = 'Version <span class="text-khel-accent">v0.76.0-beta</span> found';
-                subtitle.textContent = 'Preparing Download...';
-                
-                barContainer.classList.remove('hidden');
-                text.classList.remove('hidden');
-                
-                let width = 0;
-                const interval = setInterval(() => {
-                    if (width >= 100) {
-                        clearInterval(interval);
-                        
-                        setTimeout(() => {
-                            startView.classList.add('hidden');
-                            finishView.classList.remove('hidden');
-
-                            const link = document.createElement('a');
-                            link.href = 'app/KhelYogdaan-v0.76.0-beta.apk'; 
-                            link.download = 'app/KhelYogdaan-v0.76.0-beta.apk'; 
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            
-                        }, 500);
-                    } else {
-                        width += Math.random() * 12; 
-                        if(width > 100) width = 100;
-                        bar.style.width = width + '%';
-                        text.textContent = Math.round(width) + '%';
-                    }
-                }, 200);
-
-            }, 1500); 
+            modal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
         }
 
-        function closeDownloadModal() {
-            document.getElementById('downloadModal').classList.add('hidden');
+        function closeDownloadPortal() {
+            const modal = document.getElementById('downloadModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
         }
-
-        // Counters
-        const statsSection = document.getElementById('stats-section');
-        let counted = false;
-        window.addEventListener('scroll', () => {
-            const rect = statsSection.getBoundingClientRect();
-            if ((rect.top <= window.innerHeight && rect.bottom >= 0) && !counted) {
-                counted = true;
-                document.querySelectorAll('.counter').forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    let current = 0;
-                    const inc = target / 50;
-                    const update = () => {
-                        current += inc;
-                        if(current < target) {
-                            counter.innerText = Math.ceil(current);
-                            requestAnimationFrame(update);
-                        } else counter.innerText = target;
-                    };
-                    update();
-                });
-            }
-        });
     </script>
 </body>
 </html>
